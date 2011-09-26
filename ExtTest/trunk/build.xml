@@ -1,0 +1,97 @@
+<?xml version='1.0'?>
+
+<project name="ExtTest" default="deploy" basedir=".">
+
+	<property file="${user.home}/user.properties" />
+	<property file="${basedir}/build.properties" />
+
+	<property name="project" value="exttest" />
+	<property name="deploy.context" value="exttest" />
+
+	<property name="version" value="1.x" />
+	<property name="manifest.version" value="1.0" />
+
+	<property name="src.dir" value="src" />
+	<property name="webcontent.dir" value="WebContent" />
+	<property name="build.dir" value="build" />
+	<property name="lib.dir" value="${webcontent.dir}/WEB-INF/lib" />
+	<property name="classes.dir" value="build/classes" />
+	<property name="deploy.dir" value="/home/frenc/Lavoro/tomcat/webapps" />
+
+
+	<property name="java.target" value="1.6" />
+	<property name="java.source" value="1.6" />
+	<property name="java.debug" value="on" />
+	<property name="java.deprecation" value="on" />
+	<property name="java.encoding" value="UTF-8" />
+
+
+
+	<target name="jarfw">
+		<jar destfile="WebContent/WEB-INF/lib/zkext.jar" basedir="../zkext/bin">
+		</jar>
+	</target>
+
+	<target name="fullDeploy" depends="jarfw" description="Develop deployment">
+		<delete file="${deploy.dir}/${project}.war" />
+		<delete dir="${deploy.dir}/${project}" />
+
+		<mkdir dir="${deploy.dir}/${project}" />
+
+		<mkdir dir="${deploy.dir}/${project}/WEB-INF" />
+		<mkdir dir="${deploy.dir}/${project}/WEB-INF/classes" />
+
+		<copy todir="${deploy.dir}/${project}">
+			<fileset dir="${webcontent.dir}">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		<copy todir="${deploy.dir}/${project}/WEB-INF/classes">
+			<fileset dir="${classes.dir}">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="deploy" depends="jarfw" description="Develop deployment">
+	 
+		<copy todir="${deploy.dir}/${project}">
+			<fileset dir="${webcontent.dir}">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+		<copy todir="${deploy.dir}/${project}/WEB-INF/classes">
+			<fileset dir="${classes.dir}">
+				<include name="**/*" />
+			</fileset>
+		</copy>
+	</target>
+
+	<target name="deployWar" depends="jarfw" description="War deployment">
+		<delete file="${deploy.dir}/${project}.war" />
+		<delete dir="${deploy.dir}/${project}" />
+		<war destfile="${deploy.dir}/${project}.war" webxml="${webcontent.dir}/WEB-INF/web.xml">
+			<fileset dir="${webcontent.dir}">
+				<exclude name="WEB-INF/**/*" />
+				<include name="**/*" />
+			</fileset>
+			<webinf dir="${webcontent.dir}/WEB-INF">
+				<include name="**/*" />
+				<exclude name="web.xml" />
+			</webinf>
+			<classes dir="${classes.dir}">
+				<include name="**/*" />
+			</classes>
+			<lib dir="${lib.dir}">
+				<include name="**/*.jar" />
+			</lib>
+			<manifest>
+				<attribute name="Implementation-Vendor" value="Francesco Fipertani &amp; co." />
+				<attribute name="Implementation-Title" value="${project}" />
+				<attribute name="Implementation-Version" value="${manifest.version}" />
+			</manifest>
+		</war>
+
+	</target>
+
+</project>
