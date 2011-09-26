@@ -9,6 +9,7 @@ import org.zkoss.zk.ui.metainfo.ComponentDefinition;
 import org.zkoss.zk.ui.metainfo.ComponentInfo;
 
 import com.ff.interceptor.SmartUpdateInterceptor;
+import com.ff.ui.store.Store;
 
 public class UiFactory extends SimpleUiFactory{
 
@@ -21,7 +22,7 @@ public class UiFactory extends SimpleUiFactory{
 		}catch(Exception e){
 			return null;
 		}
-		if(com.ff.Component.class.isAssignableFrom(wClass)){		
+		if(com.ff.AbstractComponent.class.isAssignableFrom(wClass)){		
 			return createComponent(page, parent, compdef, wClass);
 		}else{
 			return super.newComponent(page, parent, compdef, clsnm);
@@ -44,7 +45,11 @@ public class UiFactory extends SimpleUiFactory{
 			}
 			*/
 		Class wClass =(Class)compInfo.getComponentDefinition().getImplementationClass();
-		if(com.ff.Component.class.isAssignableFrom(wClass)){		
+		if(com.ff.ui.store.Store.class.isAssignableFrom(wClass)){
+			return createStore(page,parent,compInfo,wClass);
+		}
+		
+		if(com.ff.AbstractComponent.class.isAssignableFrom(wClass)){		
 			return createComponent(page,parent,compInfo,wClass);
 		}else{
 			return super.newComponent(page, parent, compInfo);
@@ -55,7 +60,7 @@ public class UiFactory extends SimpleUiFactory{
 	private Component createComponent(Page page, Component parent,
 			Object info, Class wClass){
 		//com.ff.Component newComp = (com.ff.Component)component;
-		com.ff.Component newComp = newIstance(wClass);		
+		com.ff.AbstractComponent newComp = newInstance(wClass);		
 							
 		applyProperties(newComp,info);		
 		newComp.setPage(page);
@@ -74,9 +79,20 @@ public class UiFactory extends SimpleUiFactory{
 		}
 	}
 	
-	public <T extends com.ff.Component> T newIstance(Class<T> c){	
+	public <T extends com.ff.AbstractComponent> T newInstance(Class<T> c){	
 		T newComp = (T)Enhancer.create(c, new SmartUpdateInterceptor());
 		newComp._init();
 		return newComp;
+	}
+	
+	public Store createStore(Page page, Component parent,
+			Object info, Class wClass){
+		Store store = newInstance(wClass);		
+		
+		applyProperties(store,info);		
+		store.setPage(page);				
+		store.setParent(parent);
+		store.init();
+		return store;
 	}
 }
