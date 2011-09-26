@@ -13,7 +13,7 @@ import com.ff.ui.store.Store;
 
 @Scope("prototype")
 @Controller("TestCtrl")
-public class TestController extends JJController{
+public class TestController extends com.ff.controller.Controller{
 	Button button;
 	Button buttone;
 	Store userStore;
