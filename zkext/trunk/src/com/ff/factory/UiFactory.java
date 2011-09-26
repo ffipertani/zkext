@@ -44,6 +44,9 @@ public class UiFactory extends SimpleUiFactory{
 				return layout;
 			}
 			*/
+		/*
+		return super.newComponent(page, parent, compInfo);
+		*/
 		Class wClass =(Class)compInfo.getComponentDefinition().getImplementationClass();
 		if(com.ff.ui.store.Store.class.isAssignableFrom(wClass)){
 			return createStore(page,parent,compInfo,wClass);
@@ -61,11 +64,11 @@ public class UiFactory extends SimpleUiFactory{
 			Object info, Class wClass){
 		//com.ff.Component newComp = (com.ff.Component)component;
 		com.ff.AbstractComponent newComp = newInstance(wClass);		
-							
-		applyProperties(newComp,info);		
 		newComp.setPage(page);
 		newComp.setParent(parent);
-		newComp.init();
+		applyProperties(newComp,info);		
+		
+		//newComp.init();
 		return newComp;
 		 
 		
@@ -92,7 +95,7 @@ public class UiFactory extends SimpleUiFactory{
 		applyProperties(store,info);		
 		store.setPage(page);				
 		store.setParent(parent);
-		store.init();
+		//store.init();
 		return store;
 	}
 }

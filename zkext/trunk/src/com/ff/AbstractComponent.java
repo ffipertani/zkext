@@ -16,6 +16,7 @@ import org.zkoss.zk.ui.sys.ContentRenderer;
 import com.ff.annotation.Property;
 import com.ff.enums.UpdateType;
 import com.ff.event.EventConfig;
+import com.ff.factory.UiFactory;
 import com.ff.ui.layout.Layout;
 import com.ff.ui.page.Page;
 import com.ff.ui.store.Store;
@@ -24,6 +25,13 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 
 	protected Map<String,PropertyField> properties = new HashMap<String,PropertyField>();
 	protected static Map<Class,List<EventConfig>> events = new HashMap<Class,List<EventConfig>>();
+	private static UiFactory FACTORY;
+	
+	static{
+		if(FACTORY==null){
+			FACTORY = new UiFactory();
+		}
+	}
 	
 	public AbstractComponent(){
  
@@ -240,6 +248,7 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 		return cls.getSuperclass();
 	}
 	
+	
 	public <T> T getChildOfClass(Class<T> cls){
 		List<AbstractComponent> children = getChildren();	 
 		for(AbstractComponent child:children){			
@@ -275,6 +284,10 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 			parent = (AbstractComponent)parent.getParent();			
 		}
 		return null;
+	}
+	
+	public <T extends AbstractComponent> T newInstance(Class<T> c){
+		return FACTORY.newInstance(c);
 	}
 	 
 }

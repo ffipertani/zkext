@@ -7,25 +7,11 @@ import com.ff.ui.store.Store;
 
 public class Grid extends Panel{
 
-	private String store;
-	private Store activeStore;
+	private Store store;
+ 
 	
-	@Override
-	public void init() {	
-		super.init();
-		
-		List<Store> stores = getStores();
-		for(Store s:stores){
-			if(s.getId()!=null && s.getId().equals(store)){
-				activeStore = s;
-				break;
-			}
-		}
-	}
-
-	
-	
-	public List<Column> getColumns(){
+	 
+	public List<Column> getColumns(){		
 		Columns columns = getChildOfClass(Columns.class);		 
 		return columns.getChildrenOfClass(Column.class);		
 	}
@@ -34,16 +20,19 @@ public class Grid extends Panel{
 		Rows rows = getChildOfClass(Rows.class);
 		row.setParent(rows);				 		 
 	}
+	
+	public List<Row> getRows(){
+		return getChildOfClass(Rows.class).getChildrenOfClass(Row.class);
+	}
 
-	public String getStore() {
+	public Store getStore() {
 		return store;
 	}
 
-	public void setStore(String store) {
+	public void setStore(Store store) {
 		this.store = store;
+		store.addGrid(this);
 	}
-
-	 
 
 	 
 }

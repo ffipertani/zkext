@@ -4,15 +4,13 @@ import com.ff.ui.container.Container;
 
 public class Page extends Container{
 
- 
+	 
 	private String title;
 	
 	public Page(){
 		
 	}
-	
-	
-
+	 
 
 	public String getTitle() {
 		return title;
@@ -22,6 +20,5 @@ public class Page extends Container{
 		this.title = title;
 		this.getPage().setTitle(title);
 	}
-	
-	
+ 
 }
