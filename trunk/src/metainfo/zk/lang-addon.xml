@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<language-addon>
+			
+	<stylesheet href="~./js/zkext/lib/ext/extjs/resources/css/ext-all.css" type="text/css" /> 
+	<stylesheet href="~./js/zkext/lib/css/zkext.css" type="text/css" />
+ 
+	
+	<addon-name>zkext</addon-name>
+	<language-name>xul/html</language-name>
+	
+	
+	<!-- FORM && FIELD -->
+	
+	<component>
+		<component-name>Label</component-name>
+		<component-class>com.ff.ui.form.Label</component-class>
+		<widget-class>zkext.ui.form.Label</widget-class>
+	</component>
+	
+	<component>
+		<component-name>Form</component-name>
+		<component-class>com.ff.ui.form.Form</component-class>
+		<widget-class>zkext.ui.form.Form</widget-class>
+	</component>
+			
+	<component>
+		<component-name>Picker</component-name>
+		<component-class>com.ff.ui.form.Picker</component-class>
+		<widget-class>zkext.ui.form.Picker</widget-class>
+	</component>	 		
+			
+	<component>
+		<component-name>Text</component-name>
+		<component-class>com.ff.ui.form.Text</component-class>
+		<widget-class>zkext.ui.form.Text</widget-class>
+	</component>	
+	
+	<component>
+		<component-name>Field</component-name>
+		<component-class>com.ff.ui.form.Field</component-class>
+		<widget-class>zkext.ui.form.Field</widget-class>
+	</component>	 
+	 
+	<component>
+		<component-name>CheckBox</component-name>
+		<component-class>com.ff.ui.form.CheckBox</component-class>
+		<widget-class>zkext.ui.form.CheckBox</widget-class>
+	</component>
+	
+	<component>
+		<component-name>ComboBox</component-name>
+		<component-class>com.ff.ui.form.ComboBox</component-class>
+		<widget-class>zkext.ui.form.ComboBox</widget-class>
+	</component>
+
+	<component>
+		<component-name>Date</component-name>
+		<component-class>com.ff.ui.form.Date</component-class>
+		<widget-class>zkext.ui.form.Date</widget-class>
+	</component>
+	
+	<component>
+		<component-name>Display</component-name>
+		<component-class>com.ff.ui.form.Display</component-class>
+		<widget-class>zkext.ui.form.Display</widget-class>
+	</component>
+ 
+	<component>
+		<component-name>File</component-name>
+		<component-class>com.ff.ui.form.File</component-class>
+		<widget-class>zkext.ui.form.File</widget-class>
+	</component>
+	
+	<component>
+		<component-name>Hidden</component-name>
+		<component-class>com.ff.ui.form.Hidden</component-class>
+		<widget-class>zkext.ui.form.Hidden</widget-class>
+	</component>	 
+	
+	<component>
+		<component-name>HtmlEditor</component-name>
+		<component-class>com.ff.ui.form.HtmlEditor</component-class>
+		<widget-class>zkext.ui.form.HtmlEditor</widget-class>
+	</component>	 
+	
+	<component>
+		<component-name>Number</component-name>
+		<component-class>com.ff.ui.form.Number</component-class>
+		<widget-class>zkext.ui.form.Number</widget-class>
+	</component>	 
+	
+	<component>
+		<component-name>Radio</component-name>
+		<component-class>com.ff.ui.form.Radio</component-class>
+		<widget-class>zkext.ui.form.Radio</widget-class>
+	</component>	 
+	
+	<component>
+		<component-name>Spinner</component-name>
+		<component-class>com.ff.ui.form.Spinner</component-class>
+		<widget-class>zkext.ui.form.Spinner</widget-class>
+	</component>	 
+	
+	<component>
+		<component-name>TextArea</component-name>
+		<component-class>com.ff.ui.form.TextArea</component-class>
+		<widget-class>zkext.ui.form.TextArea</widget-class>
+	</component>	 
+	
+	<component>
+		<component-name>Time</component-name>
+		<component-class>com.ff.ui.form.Time</component-class>
+		<widget-class>zkext.ui.form.Time</widget-class>
+	</component>	 
+	   
+	
+	<!-- FINE FORM && FIELDS -->
+	 
+	 
+	 
+	 <component>
+		<component-name>Grid</component-name>
+		<component-class>com.ff.ui.grid.Grid</component-class>
+		<widget-class>zkext.ui.grid.Grid</widget-class>
+	</component>
+	
+	<component>
+		<component-name>Columns</component-name>
+		<component-class>com.ff.ui.grid.Columns</component-class>
+		<widget-class>zkext.ui.grid.Columns</widget-class>
+	</component>
+	
+	<component>
+		<component-name>Column</component-name>
+		<component-class>com.ff.ui.grid.Column</component-class>
+		<widget-class>zkext.ui.grid.Column</widget-class>
+	</component>
+	
+	<component>
+		<component-name>Rows</component-name>
+		<component-class>com.ff.ui.grid.Rows</component-class>
+		<widget-class>zkext.ui.grid.Rows</widget-class>
+	</component>
+	
+	<component>
+		<component-name>Row</component-name>
+		<component-class>com.ff.ui.grid.Row</component-class>
+		<widget-class>zkext.ui.grid.Row</widget-class>
+	</component>
+	
+	<component>
+		<component-name>Cell</component-name>
+		<component-class>com.ff.ui.grid.Cell</component-class>
+		<widget-class>zkext.ui.grid.Cell</widget-class>
+	</component>
+	  
+	 
+	 
+	 
+	<component>
+		<component-name>Button</component-name>
+		<component-class>com.ff.ui.button.Button</component-class>
+		<widget-class>zkext.ui.button.Button</widget-class>
+	</component>
+	
+	<component>
+		<component-name>Page</component-name>
+		<component-class>com.ff.ui.page.Page</component-class>
+		<widget-class>zkext.ui.page.Page</widget-class>
+	</component>
+	
+ 
+	<component>
+		<component-name>Panel</component-name>
+		<component-class>com.ff.ui.panel.Panel</component-class>
+		<widget-class>zkext.ui.panel.Panel</widget-class>
+	</component>
+	
+	<component>
+		<component-name>Toolbar</component-name>
+		<component-class>com.ff.ui.toolbar.Toolbar</component-class>
+		<widget-class>zkext.ui.toolbar.Toolbar</widget-class>
+	</component>
+	
+	
+	<!-- LAYOUTS -->
+	
+	 
+	<component>
+		<component-name>AbsoluteLayout</component-name>
+		<component-class>com.ff.ui.layout.AbsoluteLayout</component-class>
+		<widget-class>zkext.ui.layout.Layout</widget-class>
+	</component>
+	
+	<component>
+		<component-name>AccordionLayout</component-name>
+		<component-class>com.ff.ui.layout.AccordionLayout</component-class>
+		<widget-class>zkext.ui.layout.Layout</widget-class>
+	</component>
+	
+	<component>
+		<component-name>AnchorLayout</component-name>
+		<component-class>com.ff.ui.layout.AnchorLayout</component-class>
+		<widget-class>zkext.ui.layout.Layout</widget-class>
+	</component>
+	
+	<component>
+		<component-name>AutoLayout</component-name>
+		<component-class>com.ff.ui.layout.AutoLayout</component-class>
+		<widget-class>zkext.ui.layout.Layout</widget-class>
+	</component>
+	
+	<component>
+		<component-name>BorderLayout</component-name>
+		<component-class>com.ff.ui.layout.BorderLayout</component-class>
+		<widget-class>zkext.ui.layout.Layout</widget-class>
+	</component>
+	 
+	<component>
+		<component-name>CardLayout</component-name>
+		<component-class>com.ff.ui.layout.CardLayout</component-class>
+		<widget-class>zkext.ui.layout.Layout</widget-class>
+	</component>
+	
+	<component>
+		<component-name>ColumnLayout</component-name>
+		<component-class>com.ff.ui.layout.ColumnLayout</component-class>
+		<widget-class>zkext.ui.layout.Layout</widget-class>
+	</component>
+	
+	<component>
+		<component-name>FitLayout</component-name>
+		<component-class>com.ff.ui.layout.FitLayout</component-class>
+		<widget-class>zkext.ui.layout.Layout</widget-class>
+	</component>
+	
+	<component>
+		<component-name>HBoxLayout</component-name>
+		<component-class>com.ff.ui.layout.HBoxLayout</component-class>
+		<widget-class>zkext.ui.layout.Layout</widget-class>
+	</component>
+	
+	<component>
+		<component-name>TableLayout</component-name>
+		<component-class>com.ff.ui.layout.TableLayout</component-class>
+		<widget-class>zkext.ui.layout.Layout</widget-class>
+	</component>
+	
+	<component>
+		<component-name>VBoxLayout</component-name>
+		<component-class>com.ff.ui.layout.VBoxLayout</component-class>
+		<widget-class>zkext.ui.layout.Layout</widget-class>
+	</component>
+	
+	<!-- FINE LAYOUTS -->
+	
+	
+	
+	
+</language-addon>
