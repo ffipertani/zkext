@@ -2,7 +2,7 @@
 <?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
  <Page apply="${TestCtrl }" styleHeight="100%" styleWidth="100%">
 
-	<Store id="userDs" table="Users" dataSource="${dataSource}"/>  
+	<Store id="userStore" table="Users" dataSource="${dataSource}"/>  
 
  	<BorderLayout>
 		<Toolbar region="north" height="40" styleWidth="100%">
@@ -11,7 +11,7 @@
 		
 		<Panel title="Gestione utenti" region="center" >
 		 	<!--  -->
-			<Grid id="grid" title="Prova grid" store="${userDs}">
+			<Grid id="grid" title="Prova grid" store="userStore">
 				<Columns>
 					<Column text="Nome" field="firstname"/>
 					<Column text="Anni di esperienza" field="senority"/>
