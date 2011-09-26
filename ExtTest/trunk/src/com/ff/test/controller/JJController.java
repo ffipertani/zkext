@@ -16,8 +16,8 @@ public class JJController extends GenericSpringComposer {
 		onLoad();
 	}
 	
-	protected <T extends com.ff.Component> T newIstance(Class<T> cls){
-		return FACTORY.newIstance(cls);
+	protected <T extends com.ff.AbstractComponent> T newInstance(Class<T> cls){
+		return FACTORY.newInstance(cls);
 	}
 	
 	protected void onLoad(){
