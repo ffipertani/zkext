@@ -1,6 +1,4 @@
-<?page title="ZKExt Test Page"?>
-<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
- <Page apply="${TestCtrl }" styleHeight="100%" styleWidth="100%">
+ <Page title="Prova EXTJS" apply="${TestCtrl }" styleHeight="100%" styleWidth="100%">
 
 	<Store id="userStore" table="Users" dataSource="${dataSource}"/>  
 
