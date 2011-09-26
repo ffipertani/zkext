@@ -4,9 +4,13 @@ import net.sf.cglib.proxy.Enhancer;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Page;
+import org.zkoss.zk.ui.Richlet;
 import org.zkoss.zk.ui.http.SimpleUiFactory;
 import org.zkoss.zk.ui.metainfo.ComponentDefinition;
 import org.zkoss.zk.ui.metainfo.ComponentInfo;
+import org.zkoss.zk.ui.metainfo.PageDefinition;
+import org.zkoss.zk.ui.sys.RequestInfo;
+import org.zkoss.zkplus.spring.DelegatingVariableResolver;
 
 import com.ff.interceptor.SmartUpdateInterceptor;
 import com.ff.ui.store.Store;
@@ -28,6 +32,18 @@ public class UiFactory extends SimpleUiFactory{
 			return super.newComponent(page, parent, compdef, clsnm);
 		}
 		
+	}
+	
+	@Override
+	public Page newPage(RequestInfo ri, PageDefinition pagedef, String path) {
+		Page page = super.newPage(ri, pagedef, path);
+		return createPage(page);
+	}
+	
+	@Override
+	public Page newPage(RequestInfo ri, Richlet richlet, String path) {	
+		Page page = super.newPage(ri, richlet, path);
+		return createPage(page);
 	}
 	
 	@Override	
@@ -58,6 +74,11 @@ public class UiFactory extends SimpleUiFactory{
 			return super.newComponent(page, parent, compInfo);
 		}
 		
+	}
+	
+	private Page createPage(Page page){
+		page.addVariableResolver(new DelegatingVariableResolver());
+		return page;
 	}
 	
 	private Component createComponent(Page page, Component parent,
