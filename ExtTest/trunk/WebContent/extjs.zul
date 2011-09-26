@@ -11,7 +11,7 @@
 		
 		<Panel title="Gestione utenti" region="center" >
 		 	<!--  -->
-			<Grid id="grid" title="Prova grid" store="userStore">
+			<Grid id="grid" title="Prova grid" store="${userStore}">
 				<Columns>
 					<Column text="Nome" field="firstname"/>
 					<Column text="Anni di esperienza" field="senority"/>
