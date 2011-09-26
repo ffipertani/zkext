@@ -2,6 +2,7 @@
 	 
 	<script src="../lib/ext/extjs/ext-all-debug.js"/>
 	
+	<widget name="AbstractComponent"/>
 	<widget name="Component"/>
 		 
 </package>

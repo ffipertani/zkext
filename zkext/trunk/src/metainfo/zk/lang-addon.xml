@@ -9,6 +9,12 @@
 	<addon-name>zkext</addon-name>
 	<language-name>xul/html</language-name>
 	
+	<component>
+		<component-name>Store</component-name>
+		<component-class>com.ff.ui.store.Store</component-class>
+		<widget-class>zkext.ui.store.Store</widget-class>
+	</component>
+	
 	
 	<!-- FORM && FIELD -->
 	

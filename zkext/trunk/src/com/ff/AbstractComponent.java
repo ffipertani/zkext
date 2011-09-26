@@ -17,6 +17,8 @@ import com.ff.annotation.Property;
 import com.ff.enums.UpdateType;
 import com.ff.event.EventConfig;
 import com.ff.ui.layout.Layout;
+import com.ff.ui.page.Page;
+import com.ff.ui.store.Store;
 
 public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponent{
 
@@ -255,6 +257,22 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 			if(child.getRealClass().isAssignableFrom(cls) ){
 				toReturn.add((T)child);
 			}
+		}
+		return toReturn;
+	}
+	
+	public List<Store> getStores(){
+		Page page = getParentPage();
+		return page.getChildrenOfClass(Store.class);
+	}
+	
+	public Page getParentPage(){
+		AbstractComponent parent = this;
+		while(parent!=null || !(parent instanceof AbstractComponent) ){
+			if(parent instanceof Page){
+				return (Page)parent;
+			}
+			parent = (AbstractComponent)parent.getParent();			
 		}
 		return null;
 	}
