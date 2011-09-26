@@ -1,0 +1,67 @@
+<?page title="ZKExt Test Page"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+ <Page apply="${TestCtrl }" styleHeight="100%" styleWidth="100%">
+
+	<Store id="userDs" table="Users" dataSource="${dataSource}"/>  
+
+ 	<BorderLayout>
+		<Toolbar region="north" height="40" styleWidth="100%">
+				<Label text="EXTJS for Dummies"/>
+		</Toolbar>
+		
+		<Panel title="Gestione utenti" region="center" >
+		 	<!--  -->
+			<Grid id="grid" title="Prova grid" store="${userDs}">
+				<Columns>
+					<Column text="Nome" field="firstname"/>
+					<Column text="Anni di esperienza" field="senority"/>
+				</Columns>
+				<Rows>				 
+					<Row>
+						<Cell name="firstname" value="Michael"/>
+						<Cell name="senority" value="3"/>
+					</Row>	
+					<Row>
+						<Cell name="firstname" value="Pippo"/>
+						<Cell name="senority" value="13"/>
+					</Row>				
+				</Rows>
+			</Grid>
+			
+			<Form styleHeight="100%" styleWidth="100%">
+	 			<Label text="Questa è una form"/>
+	 			<Text name="pippo" value="test"/>
+	 			<CheckBox/>
+	 			<ComboBox/>
+	 			<Date/>
+	 			<Display/>
+	 			<File/>
+	 			<Hidden/>
+	 			<HtmlEditor/>
+	 			<Number/>	 			
+	 			<Radio/>
+	 			<Spinner/>
+	 			<TextArea/>
+	 			<Time/> 
+	 			
+	 		 
+	 		 
+	 		 </Form>	
+	 		 
+		</Panel>
+	    <Panel title="Menu" width="200" region="west">
+		  <Button id="button" text="Cliccami"  />
+		 	 
+	 	</Panel>
+		<Panel title="Menu" width="150" region="east">
+				<Button id="buttone" text="EAST"  />		 	
+	 	</Panel>
+	 	<Panel title="Menu" height="50" region="south">
+	 			<Button id="buttonw" text="SUD"  />		
+	 	</Panel>
+	</BorderLayout>
+	
+	
+ 
+ </Page>
+  

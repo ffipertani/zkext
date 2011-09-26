@@ -1,0 +1,30 @@
+<?page title="ZKExt Test Page"?>
+<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
+ <Page  styleHeight="100%" styleWidth="100%">
+  	<Toolbar region="north" height="40" styleWidth="100%">
+			<Label text="EXTJS for Dummies"/>
+	</Toolbar>
+<Button/>
+ 	<Form styleHeight="100%" styleWidth="100%">
+	 			<Label text="Questa è una form"/>
+	 			<Text name="pippo" value="test"/>
+	 			<CheckBox/>
+	 			<ComboBox/>
+	 			<Date/>
+	 			<Display/>
+	 			<File/>
+	 			<Hidden/>
+	 			<HtmlEditor/>
+	 			<Number/>	 			
+	 			<Radio/>
+	 			<Spinner/>
+	 			<TextArea/>
+	 			<Time/> 
+	 			
+	 		 
+	 		 
+	 		 </Form>	
+	 		 
+ 
+ </Page>
+  

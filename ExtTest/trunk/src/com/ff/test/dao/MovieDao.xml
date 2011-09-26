@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.ff.test.dao.MovieDao">
+    <typeAlias alias="Movie" type="com.ff.test.domain.MovieSource" />
+    
+	<resultMap id="movie" class="Movie" >
+        <result property="id" column="id"/>        
+        <result property="title" column="title"/>
+        <result property="description" column="description"/>
+        <result property="story" column="story"/>
+        <result property="duration" column="duration"/>
+        <result property="originalTitle" column="original_title"/>
+        <result property="year" column="year"/>
+        <result property="imageUrl" column="image_url"/>
+        <result property="production" column="production"/>
+        <result property="fullTitle" column="full_title"/>
+        <result property="pageUrl" column="page_url"/>
+        <result property="category" column="category"/>
+        <result property="imdbKey" column="imdb"/>
+    </resultMap>
+   
+    <sql id="filter">
+    	<isEqual property="filters[].name" compareValue="titolo">
+		  upper(title) like  '%' || upper(#filters[].value#) || '%' 
+	    </isEqual> 
+    </sql>
+   
+    <select id="loadAll" parameterClass="Map" resultMap="movie">        
+       SELECT *
+       FROM 
+       MOVIES	    
+       where rownum <![CDATA[ < ]]> 8
+    </select>
+    
+     <select id="search" parameterClass="Map" resultMap="movie">        
+     SELECT * 
+ 		 FROM ( SELECT a.*, ROWNUM rnum
+          	 FROM (SELECT * FROM MOVIES
+          	 <dynamic prepend="WHERE">
+	          	<iterate prepend="AND" property="filters" open="(" close=")" conjunction="AND">				 
+				 <include refid="filter"/>				   				 
+				</iterate>
+          	 </dynamic>
+          	 
+          	 ) a
+          	 WHERE ROWNUM <![CDATA[ <= ]]> #to# )
+ 		WHERE rnum <![CDATA[ > ]]> #from#    
+    </select>
+    
+     <select id="load" parameterClass="Long" resultMap="movie">        
+       SELECT *
+       FROM 
+       MOVIES	    
+       where id = #id#
+    </select>
+    
+     <select id="count" resultClass="Integer" parameterClass="Map">        
+       SELECT count(1)
+       FROM 
+       MOVIES
+       <dynamic prepend="WHERE">
+         	<iterate prepend="AND" property="filters" open="(" close=")" conjunction="AND">				 		 
+			  <include refid="filter"/>				   			  
+			</iterate>
+       </dynamic>	           
+    </select>
+    
+	  
+	<insert id="insert" parameterClass="Movie">
+		<selectKey resultClass="String" keyProperty="id" > 
+			SELECT SEQUENCE_MOVIES.NEXTVAL AS ID FROM DUAL
+        </selectKey>
+	
+		INSERT into MOVIES
+		(id,title,description,duration,original_title,image_url,production,full_title,page_url,category,year,imdb,story) 
+		VALUES
+		(#id#,#title#,#description#,#duration#,#originalTitle#,#imageUrl#,#production#,#fullTitle#,#pageUrl#,#category#,#year#,#imdbKey#,#story#)
+	</insert>
+
+
+</sqlMap>
