@@ -5,19 +5,20 @@ import org.springframework.stereotype.Controller;
 import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.EventListener;
 
-import com.ff.factory.UiFactory;
 import com.ff.ui.button.Button;
 import com.ff.ui.grid.Cell;
 import com.ff.ui.grid.Grid;
 import com.ff.ui.grid.Row;
+import com.ff.ui.store.Store;
 
 @Scope("prototype")
 @Controller("TestCtrl")
 public class TestController extends JJController{
 	Button button;
 	Button buttone;
-	
+	Store userStore;
 	Grid grid;
+	 
 	
 	@Override
 	protected void onLoad(){
@@ -61,7 +62,7 @@ public class TestController extends JJController{
 			}
 		});
 
-		
+		//userStore.fetch();
 	}
 
 }
