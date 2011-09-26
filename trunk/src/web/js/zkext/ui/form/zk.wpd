@@ -1,0 +1,21 @@
+<package name="zkext.ui.form" language="xul/html" depends="zkext.ui,zkext.ui.panel">
+	
+	<widget name="Label"/>
+	<widget name="Form"/>
+	<widget name="Field"/>
+	<widget name="Text"/>
+	<widget name="Picker"/>
+	<widget name="CheckBox"/>
+	<widget name="ComboBox"/>
+	<widget name="Date"/>
+	<widget name="Display"/>
+	<widget name="File"/>
+	<widget name="Hidden"/>
+	<widget name="HtmlEditor"/>
+	<widget name="Number"/>	
+	<widget name="Radio"/>
+	<widget name="Spinner"/>
+	<widget name="TextArea"/>
+	<widget name="Time"/>
+ 
+</package>

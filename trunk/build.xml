@@ -1,0 +1,50 @@
+<project name="zkext" default="jar">
+	<property name="build" value="build"/>
+	<property name="lib" value="lib"/>
+	<property name="dest" value="../ExtTest/WebContent/WEB-INF/lib/zkext.jar"/>
+		 
+    <target name="clean">
+        <delete dir="build"/>
+    </target>
+	
+	<target name="init">
+		<delete dir="${build}"/>
+        <mkdir dir="${build}"/>
+	</target>
+
+     
+	<target name="compile" depends="init">		 
+		<javac srcdir="src" destdir="${build}" >			
+			<classpath>				 
+				  <fileset dir="lib">
+				    <include name="**/*.jar"/>				    
+				  </fileset>				 
+			</classpath>
+		</javac>
+		<copy todir="${build}/metainfo">
+			<fileset dir="src/metainfo">
+			    <include name="**/*"/>
+			</fileset>
+		</copy>
+		<copy todir="${build}/web">
+			<fileset dir="src/web">
+			    <include name="**/*"/>
+			</fileset>
+		</copy>
+	</target>	
+
+    <target name="rawjar" depends="compile">    	
+    	<jar destfile="${dest}" basedir="${build}" >
+        </jar>
+    </target>
+	
+	<target name="jar" >    	
+    	<jar destfile="${dest}" basedir="bin" >
+        </jar>
+    </target>
+
+    <target name="run">
+        <java jar="build/zkext.jar" fork="true"/>
+    </target>
+
+</project>

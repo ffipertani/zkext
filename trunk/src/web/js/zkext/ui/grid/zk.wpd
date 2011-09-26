@@ -1,0 +1,10 @@
+<package name="zkext.ui.grid" language="xul/html" depends="zkext.ui.panel">
+ 
+	<widget name="Grid"/>
+	<widget name="Columns"/>
+	<widget name="Column"/>
+	<widget name="Rows"/>
+	<widget name="Row"/>
+	<widget name="Cell"/>
+  
+</package>
