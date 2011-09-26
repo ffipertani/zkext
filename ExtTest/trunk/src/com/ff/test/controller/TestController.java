@@ -22,12 +22,12 @@ public class TestController extends JJController{
 	@Override
 	protected void onLoad(){
 		 
-		Row row = newIstance(Row.class);
-		Cell cell = newIstance(Cell.class);
+		Row row = newInstance(Row.class);
+		Cell cell = newInstance(Cell.class);
 		cell.setName("firstname");
 		cell.setValue("gigi");
 		row.addCell(cell);
-		cell = newIstance(Cell.class);
+		cell = newInstance(Cell.class);
 		cell.setName("senority");
 		cell.setValue("4");
 		row.addCell(cell);
@@ -47,12 +47,12 @@ public class TestController extends JJController{
 			
 			@Override
 			public void onEvent(Event event) throws Exception {				
-				Row row = newIstance(Row.class);
-				Cell cell = newIstance(Cell.class);
+				Row row = newInstance(Row.class);
+				Cell cell = newInstance(Cell.class);
 				cell.setName("firstname");
 				cell.setValue("gianni");
 				row.addCell(cell);
-				cell = newIstance(Cell.class);
+				cell = newInstance(Cell.class);
 				cell.setName("senority");
 				cell.setValue("422");
 				row.addCell(cell);
