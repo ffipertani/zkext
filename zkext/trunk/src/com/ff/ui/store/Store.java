@@ -20,7 +20,7 @@ public class Store extends AbstractComponent{
 	private List<Form> forms = new ArrayList();
 	
 			
-	public void init() {
+	public void fetch() {
 		Grid grid = grids.get(0);
 		try{
 			CallableStatement st = dataSource.getConnection().prepareCall("select * from "+ table);			
@@ -57,7 +57,6 @@ public class Store extends AbstractComponent{
 	public void addForm(Form form){
 		forms.add(form);
 	}
-	
 	
 	public DataSource getDataSource() {
 		return dataSource;
