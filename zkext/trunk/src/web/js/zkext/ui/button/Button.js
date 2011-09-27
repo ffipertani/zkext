@@ -11,8 +11,10 @@ zkext.ui.button.Button = zk.$extends(zkext.ui.Component,{
 		var wgt = this;
 		
 		this.getInitialConfig().handler = function(){		 
-			wgt.fire("onClick");	       
-		}				
-		this.createExt('Ext.Button');		 	
-	} 	
+			wgt.fire("onClick");	    						
+		}					
+	},
+	createExt_:function(){
+		this.newInstance('Ext.Button');
+	}
 });

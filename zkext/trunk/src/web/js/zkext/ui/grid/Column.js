@@ -11,7 +11,10 @@ zkext.ui.grid.Column = zk.$extends(zkext.ui.container.Container,{
 	},	
 	configure_:function(){	
 		this.$supers('configure_',arguments);		
-		this.createExt("Ext.grid.column.Column");
+		
+	},
+	createExt_:function(){
+		this.newInstance("Ext.grid.column.Column");
 	}
 	 
 });

@@ -10,8 +10,9 @@ zkext.ui.form.Label = zk.$extends(zkext.ui.Component,{
 	configure_:function(){
 		this.$supers('configure_');		
 		 		
-		this.createExt('Ext.form.Label');
-		//this.createExt('Ext.toolbar.TextItem');
-		
+	 
+	},
+	createExt_:function(){
+		this.newInstance('Ext.form.Label');
 	} 	
 });

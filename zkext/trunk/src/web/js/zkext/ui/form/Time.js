@@ -7,6 +7,9 @@ zkext.ui.form.Time = zk.$extends(zkext.ui.form.Picker,{
 	
 	configure_:function(){
 		this.$supers('configure_');		
-		this.createExt('Ext.form.field.Time');					 	
+							 	
+	},
+	createExt_:function(){
+		this.newInstance('Ext.form.field.Time');
 	} 	
 });

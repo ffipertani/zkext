@@ -7,6 +7,9 @@ zkext.ui.form.Spinner= zk.$extends(zkext.ui.form.Field,{
 	
 	configure_:function(){
 		this.$supers('configure_');		
-		this.createExt('Ext.form.field.Spinner');					 	
+							 
+	},
+	createExt_:function(){
+		this.newInstance('Ext.form.field.Spinner');
 	} 	
 });

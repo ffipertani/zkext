@@ -10,6 +10,8 @@ zkext.ui.grid.Rows = zk.$extends(zkext.ui.container.Container,{
 	},
 	onChildAdded_:function(wgt){
 		this.$supers('onChildAdded_',arguments);
-		this.parent.refreshRows(wgt);		
+		if(this.parent!=null){
+			this.parent.addRow(wgt);
+		}
 	}
 });

@@ -6,7 +6,9 @@ zkext.ui.form.File = zk.$extends(zkext.ui.form.Text,{
 	},
 	
 	configure_:function(){
-		this.$supers('configure_');		
-		this.createExt('Ext.form.field.File');					 	
+		this.$supers('configure_');									 
+	},
+	createExt_:function(){
+		this.newInstance('Ext.form.field.File');
 	} 	
 });

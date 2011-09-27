@@ -6,7 +6,9 @@ zkext.ui.form.Radio= zk.$extends(zkext.ui.form.CheckBox,{
 	},
 	
 	configure_:function(){
-		this.$supers('configure_');		
-		this.createExt('Ext.form.field.Radio');					 	
+		this.$supers('configure_');								 
+	},
+	createExt_:function(){
+		this.newInstance('Ext.form.field.Radio');
 	} 	
 });

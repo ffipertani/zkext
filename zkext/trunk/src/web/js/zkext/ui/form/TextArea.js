@@ -7,6 +7,9 @@ zkext.ui.form.TextArea = zk.$extends(zkext.ui.form.Text,{
 	
 	configure_:function(){
 		this.$supers('configure_');		
-		this.createExt('Ext.form.field.TextArea');					 	
+							 
+	},
+	createExt_:function(){
+		this.newInstance('Ext.form.field.TextArea');
 	} 	
 });

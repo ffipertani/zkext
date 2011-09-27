@@ -13,5 +13,5 @@ zkext.ui.form.Field = zk.$extends(zkext.ui.Component,{
 	configure_:function(){
 		this.$supers('configure_');		
 		 					 	
-	} 	
+	} 
 });

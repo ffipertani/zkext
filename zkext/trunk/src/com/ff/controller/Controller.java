@@ -11,7 +11,7 @@ import com.ff.factory.UiFactory;
 
 public class Controller extends GenericSpringComposer {
 	protected UiFactory FACTORY = new UiFactory();
-	
+
 	@Override
 	public void doAfterCompose(Component comp) throws Exception {
 		Components.wireVariables(comp, this);

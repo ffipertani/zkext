@@ -6,7 +6,9 @@ zkext.ui.form.Display = zk.$extends(zkext.ui.form.Field,{
 	},
 	
 	configure_:function(){
-		this.$supers('configure_');		
-		this.createExt('Ext.form.field.Display');					 	
+		this.$supers('configure_');								 
+	},
+	createExt_:function(){
+		this.newInstance('Ext.form.field.Display');
 	} 	
 });

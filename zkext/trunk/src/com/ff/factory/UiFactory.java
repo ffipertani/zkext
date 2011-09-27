@@ -1,6 +1,16 @@
 package com.ff.factory;
 
+import net.sf.cglib.asm.AnnotationVisitor;
+import net.sf.cglib.asm.Attribute;
+import net.sf.cglib.asm.ClassVisitor;
+import net.sf.cglib.asm.FieldVisitor;
+import net.sf.cglib.asm.MethodVisitor;
+import net.sf.cglib.core.ClassGenerator;
+import net.sf.cglib.core.DefaultGeneratorStrategy;
 import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.transform.ClassTransformer;
+import net.sf.cglib.transform.TransformingClassGenerator;
+import net.sf.cglib.transform.impl.InterceptFieldTransformer;
 
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.Page;
@@ -103,11 +113,21 @@ public class UiFactory extends SimpleUiFactory{
 		}
 	}
 	
-	public <T extends com.ff.AbstractComponent> T newInstance(Class<T> c){	
-		T newComp = (T)Enhancer.create(c, new SmartUpdateInterceptor());
+	public <T extends com.ff.AbstractComponent> T newInstance(Class<T> c){		
+		Enhancer e = new Enhancer();		
+		/*
+		e.setStrategy(new DefaultGeneratorStrategy() {
+			protected ClassGenerator transform(ClassGenerator cg) throws Exception {
+			ClassTransformer t = new InterceptFieldTransformer();
+			return new TransformingClassGenerator(cg, t);
+			}
+			});
+			*/
+		T newComp = (T)e.create(c, new SmartUpdateInterceptor());
 		newComp._init();
 		return newComp;
 	}
+	 
 	
 	public Store createStore(Page page, Component parent,
 			Object info, Class wClass){
