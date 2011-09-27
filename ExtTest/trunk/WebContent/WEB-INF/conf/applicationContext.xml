@@ -28,6 +28,10 @@
 	
 	
 	 -->
+	 
+	<bean id="crudService" class="com.ff.service.CrudService">
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
 	
 	<bean id="movieDao" class="com.ff.test.dao.MovieDao">
         <property name="sqlMapClient" ref="sqlMapClient"/>

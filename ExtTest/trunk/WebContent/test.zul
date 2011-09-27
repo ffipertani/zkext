@@ -1,30 +1,49 @@
-<?page title="ZKExt Test Page"?>
-<?variable-resolver class="org.zkoss.zkplus.spring.DelegatingVariableResolver"?>
- <Page  styleHeight="100%" styleWidth="100%">
-  	<Toolbar region="north" height="40" styleWidth="100%">
-			<Label text="EXTJS for Dummies"/>
-	</Toolbar>
-<Button/>
- 	<Form styleHeight="100%" styleWidth="100%">
-	 			<Label text="Questa è una form"/>
-	 			<Text name="pippo" value="test"/>
-	 			<CheckBox/>
-	 			<ComboBox/>
-	 			<Date/>
-	 			<Display/>
-	 			<File/>
-	 			<Hidden/>
-	 			<HtmlEditor/>
-	 			<Number/>	 			
-	 			<Radio/>
-	 			<Spinner/>
-	 			<TextArea/>
-	 			<Time/> 
-	 			
-	 		 
-	 		 
-	 		 </Form>	
-	 		 
- 
- </Page>
-  
+<Page>
+	<CrudStore id="userStore" table="Users"	crudService="${crudService}" />
+	<AnchorLayout>
+		<Panel title="Gestione utenti" anchor="100% 100%">
+			<!--  -->
+			<AccordionLayout>
+				<Grid id="grid" title="Prova grid" styleHeight="100%" styleWidth="100%"  store="${userStore}">
+					<Toolbar dock="top">
+						<SearchButton id="cerca" text="Cerca" />
+						<Button id="btn" text="Clicca" />
+					</Toolbar>
+					<Columns>
+						<Column text="Nome" field="firstname" />
+						<Column text="Anni di esperienza" field="senority" />
+					</Columns>
+					<Rows>
+						<Row>
+							<Cell name="firstname" value="Michael" />
+							<Cell name="senority" value="3" />
+						</Row>
+						<Row>
+							<Cell name="firstname" value="Pippo" />
+							<Cell name="senority" value="13" />
+						</Row>
+					</Rows>
+				</Grid>
+				<Form title="Prova form" styleHeight="500" autoScroll="true">
+		 			<Label text="Questa è una form"/>
+		 			<Text name="pippo" value="test"/>
+		 			<CheckBox/>
+		 			<ComboBox/>
+		 			<Date/>
+		 			<Display/>
+		 			<File/>
+		 			<Hidden/>
+		 			<HtmlEditor/>
+		 			<Number/>	 			
+		 			<Radio/>
+		 			<Spinner/>
+		 			<TextArea/>
+		 			<Time/> 
+		 			
+		 		 
+		 		 
+		 		 </Form>	
+			</AccordionLayout>	
+		</Panel>
+	</AnchorLayout>
+</Page>
