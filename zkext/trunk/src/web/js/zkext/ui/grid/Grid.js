@@ -1,29 +1,51 @@
 /* Grid.js*/
 
-zkext.ui.grid.Grid = zk.$extends(zkext.ui.Component,{	 
+zkext.ui.grid.Grid = zk.$extends(zkext.ui.panel.Panel,{	 
 	$define: {	 
 		 store:function(val){
 			 this.setProperty("store",null,val);
-		 },
-		
+		 } 
 	},	 
 	configure_:function(){	
 		this.$supers('configure_',arguments);		
-		this.createExt("Ext.grid.Panel");
-	},	
-	refreshRows:function(row){
-		if(this.getStore()!=null){			
-			this.getStore().add(row.toObject());
-		}		
-	},
-	createExt:function(name){		
+	
 		var config = this.getInitialConfig();
 		var columns = this.getColumns();
 		if(columns.length>0){
 			config.columns = columns;
 		}
 		
-		var rows = this.getRows();
+		
+	},	
+	doSearch:function(){
+		this.fire("onSearch");
+	},
+	addRow:function(row){
+		if(this.getStore()!=null){			
+			this.getStore().add(row.toObject());
+		}		
+	},
+	onChildRemoved_:function(wgt){
+		this.$supers('onChildRemoved_',arguments);
+		if(this.getStore()!=null){			
+			this.getStore().removeAll();
+		}
+	},
+	onChildAdded_:function(wgt){
+		this.$supers('onChildAdded_',arguments);
+		if(this.ext_==null){
+			return;
+		}
+		if(zkext.ui.grid.Rows.isInstance(wgt)){
+			this.getStore().removeAll();
+			try{
+				 //Da errore e non si è capito bene il perchè...
+				this.getStore().add(this.getRows());
+			}catch(err){}
+		}
+	},
+	createExt_:function(name){		
+		
 		/*
 		var store = Ext.create('Ext.data.Store', {		  
 		    fields:['firstname', 'lastname', 'senority', 'dep', 'hired'],
@@ -36,25 +58,27 @@ zkext.ui.grid.Grid = zk.$extends(zkext.ui.Component,{
 		    ]
 		});
 			*/
-		
-		
-		var store = Ext.create('Ext.data.Store', {		  
-		   // fields:['firstname', 'lastname', 'senority', 'dep', 'hired'],
-			fields:['firstname', 'senority'],
-		    data:rows
-		});
-		/* */
-		this.setStore(store);
-		
-		this.ext_ = Ext.create(name,config);		
+					
+		this.createStore();
+		this.newInstance("Ext.grid.Panel");		
 				
+	},
+	createStore:function(){
+		var rows = this.getRows();
+		var store = Ext.create('Ext.data.Store', {		  
+			   // fields:['firstname', 'lastname', 'senority', 'dep', 'hired'],
+				fields:['firstname', 'senority'],
+			    data:rows
+			});
+			/* */
+		this.setStore(store);
 	},
 	getColumns:function(){
 		var columns = new Array();
 		for (var w = this.firstChild;w;w=w.nextSibling) {		
-			if(w instanceof zkext.ui.grid.Columns){
+			if(zkext.ui.grid.Columns.isInstance(w)){
 				for (var wc = w.firstChild;wc;wc=wc.nextSibling) {		
-					if(wc instanceof zkext.ui.grid.Column){
+					if(zkext.ui.grid.Column.isInstance(wc)){
 						columns.push(wc.ext_);
 					}
 				}						
@@ -65,9 +89,9 @@ zkext.ui.grid.Grid = zk.$extends(zkext.ui.Component,{
 	getRows:function(){
 		var rows = new Array();
 		for (var w = this.firstChild;w;w=w.nextSibling) {		
-			if(w instanceof zkext.ui.grid.Rows){
+			if(zkext.ui.grid.Rows.isInstance(w)){
 				for (var wc = w.firstChild;wc;wc=wc.nextSibling) {		
-					if(wc instanceof zkext.ui.grid.Row){						 	
+					if(zkext.ui.grid.Row.isInstance(wc)){						 	
 						rows.push(wc.toObject());
 					}
 				}					

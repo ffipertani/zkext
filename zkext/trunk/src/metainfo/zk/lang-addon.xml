@@ -15,6 +15,12 @@
 		<widget-class>zkext.ui.store.Store</widget-class>
 	</component>
 	
+	<component>
+		<component-name>CrudStore</component-name>
+		<component-class>com.ff.ui.store.CrudStore</component-class>
+		<widget-class>zkext.ui.store.Store</widget-class>
+	</component>
+	
 	
 	<!-- FORM && FIELD -->
 	
@@ -162,7 +168,7 @@
 	</component>
 	  
 	 
-	 
+	 <!-- BUTTONS -->
 	 
 	<component>
 		<component-name>Button</component-name>
@@ -170,6 +176,14 @@
 		<widget-class>zkext.ui.button.Button</widget-class>
 	</component>
 	
+	<component>
+		<component-name>SearchButton</component-name>
+		<component-class>com.ff.ui.button.SearchButton</component-class>
+		<widget-class>zkext.ui.button.SearchButton</widget-class>
+	</component>
+	
+	
+	<!-- FINE BUTTONS -->
 	<component>
 		<component-name>Page</component-name>
 		<component-class>com.ff.ui.page.Page</component-class>

@@ -43,7 +43,7 @@ zkext.ui.Component = zk.$extends(zkext.ui.AbstractComponent,{
 			
 		},
 		overCls:function(val){
-			toolbar
+			
 		},
 		padding:function(val){
 			
@@ -64,6 +64,12 @@ zkext.ui.Component = zk.$extends(zkext.ui.AbstractComponent,{
 		},
 		styleHeight:function(val){			
 			this.setProperty("height","setHeight",val);		
+		},
+		flex:function(val){
+			this.setProperty("flex",null,val)
+		},
+		anchor:function(val){
+			this.setProperty("anchor",null,val);
 		}
 	}
 });

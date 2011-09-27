@@ -10,35 +10,39 @@ zkext.ui.AbstractComponent = zk.$extends(zul.Widget,{
 	configure_:function(){	
 		var config= this.getInitialConfig();
 		if(config==undefined){
-			this.setInitialConfig(new Object());
-		}		 
+			config = new Object();
+			this.setInitialConfig(config);
+		}		
+		var childs = this.getChildren();
+		if(childs.length>0){
+			config.items = childs;
+		}
 	},
 	bind_: function () {		
 		this.$supers('bind_', arguments);	
 		this.configure_();		
+		this.createExt_();
 	},
 	
-	unbind_: function () {				
-		this.ext_.destroy();
+	unbind_: function () {		
+		if(this.ext_!=null){
+			this.ext_.destroy();
+		}
 	},
-	createExt:function(name){		
-		var config = this.getInitialConfig();
+	getChildren:function(){
 		var childs = new Array();
 		for (var w = this.firstChild;w;w=w.nextSibling) {	
 			if(w.ext_!=null){
 				childs.push(w.ext_);
 			}
-		}	
-		if(childs.length>0){
-			config.items = childs;
 		}
-		 
-	
-		
-		this.ext_ = Ext.create(name,config);
-		 
-		//this.addChildren();
-		 
+		return childs;
+	},
+	newInstance:function(name){				
+		this.ext_ = Ext.create(name,this.getInitialConfig());
+	},
+	createExt_:function(){				 				 	
+		//this.newInstance(name);		 		
 	},
 	addChildren:function(){
 		for (var w = this.firstChild;w;w=w.nextSibling) {		
@@ -67,7 +71,22 @@ zkext.ui.AbstractComponent = zk.$extends(zul.Widget,{
 			eval(toEval);			
 		}
 	},
+	doLayout:function(){			
+		for (var w = this.firstChild;w;w=w.nextSibling) {		
+			w.doLayout();
+		}
+	},
+	getCurrentPage:function(){
+		var par = this.parent;
+		while(par){
+			if(zkext.ui.page.Page.isInstance(par)){
+				return par;
+			}
+			par = par.parent;
+		}
+		return null;
+	},
 	redraw:function(out){
-		
+		 
 	}
 });

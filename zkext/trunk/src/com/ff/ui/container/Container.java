@@ -14,6 +14,11 @@ public class Container extends Component{
 	private Boolean autoDestroy;
 	private String[] bubbleEvents;
 	private String defaultType;
+	
+	@Property
+	private String dock;
+	@Property
+	private Boolean autoScroll;
 	//defaults
 	//items
 	 
@@ -37,6 +42,22 @@ public class Container extends Component{
 	}
 	public void setLayout(Layout layout) {
 		this.layout = layout;		
+	}
+
+	public String getDock() {
+		return dock;
+	}
+
+	public void setDock(String dock) {
+		this.dock = dock;
+	}
+
+	public Boolean getAutoScroll() {
+		return autoScroll;
+	}
+
+	public void setAutoScroll(Boolean autoScroll) {
+		this.autoScroll = autoScroll;
 	}
 	
 	

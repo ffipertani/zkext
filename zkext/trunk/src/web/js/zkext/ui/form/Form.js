@@ -8,9 +8,10 @@ zkext.ui.form.Form = zk.$extends(zkext.ui.panel.Panel,{
 	},
 	
 	configure_:function(){
-		this.$supers('configure_');		
-		 			
-		this.createExt('Ext.form.Panel');
+		this.$supers('configure_');				 				
 		
+	},
+	createExt_:function(){
+		this.newInstance('Ext.form.Panel');
 	} 	
 });

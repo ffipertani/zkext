@@ -70,7 +70,10 @@ public class Component extends AbstractComponent{
 	String styleWidth;
 	@Property
 	String styleHeight;
- 
+	@Property
+	Integer flex;
+	@Property 
+	String anchor;
 	
 	public String getBorder() {
 		return border;
@@ -172,8 +175,7 @@ public class Component extends AbstractComponent{
 		return width;
 	}
 	public void setWidth(Integer width) {
-		this.width = width;
-		smartUpdate("width", width);
+		this.width = width;		
 	}
 	public String getRegion() {
 		return region;
@@ -192,6 +194,18 @@ public class Component extends AbstractComponent{
 	}
 	public void setStyleHeight(String styleHeight) {
 		this.styleHeight = styleHeight;
+	}
+	public Integer getFlex() {
+		return flex;
+	}
+	public void setFlex(Integer flex) {
+		this.flex = flex;
+	}
+	public String getAnchor() {
+		return anchor;
+	}
+	public void setAnchor(String anchor) {
+		this.anchor = anchor;
 	}
 	   
 	

@@ -1,17 +1,54 @@
 
-.x-border-box .x-reset .x-panel-body-default *{
+
+/*
+
+
+.x-reset .x-box-item {
+	-moz-box-sizing:content-box !important;
+	box-sizing:content-box !important;
+}
+
+, .x-panel-header, .x-panel-body
+
+.x-border-box .x-reset .x-box-item *{
+	-moz-box-sizing:content-box !important;
+	box-sizing:content-box !important;
+}
+
+.x-border-box .x-reset .x-panel-header{
+	-moz-box-sizing:content-box !important;
+	box-sizing:content-box !important;
+}
+
+
+
+.x-border-box .x-reset  .x-html-editor-wrap , .x-border-box .x-reset  .x-html-editor-wrap *{
+-moz-box-sizing:content-box !important;
+box-sizing:content-box !important;
+}
+
+.x-border-box .x-reset .x-box-item {
 	-moz-box-sizing:border-box !important;
 	box-sizing:border-box !important;
 }
 
 
-.x-border-box .x-reset .x-panel-body-default .x-html-editor-wrap , .x-border-box .x-reset .x-panel-body-default .x-html-editor-wrap *{
--moz-box-sizing:content-box !important;
-box-sizing:content-box !important;
+
+
+
+
+ 
+
+.x-border-box .x-reset .x-box-item *{
+	-moz-box-sizing:content-box !important;
+	box-sizing:content-box !important;
 }
+
 
 .x-border-box .x-reset, .x-border-box .x-reset *{
 -moz-box-sizing:content-box !important;
 box-sizing:content-box !important;
 }
+
+*/
 
