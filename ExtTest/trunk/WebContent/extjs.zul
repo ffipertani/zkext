@@ -1,55 +1,59 @@
  <Page title="Prova EXTJS" apply="${TestCtrl }" styleHeight="100%" styleWidth="100%">
 
-	<Store id="userStore" table="Users" dataSource="${dataSource}"/>  
+	<CrudStore id="userStore" table="Users" crudService="${crudService}"/>  
 
  	<BorderLayout>
 		<Toolbar region="north" height="40" styleWidth="100%">
-				<Label text="EXTJS for Dummies"/>
+				<Label text="Prova ext"/>
 		</Toolbar>
 		
-		<Panel title="Gestione utenti" region="center" >
+		<Panel title="Gestione utenti" region="center"  autoScroll="true" >
 		 	<!--  -->
-			<Grid id="grid" title="Prova grid" store="${userStore}">
-				<Columns>
-					<Column text="Nome" field="firstname"/>
-					<Column text="Anni di esperienza" field="senority"/>
-				</Columns>
-				<Rows>				 
-					<Row>
-						<Cell name="firstname" value="Michael"/>
-						<Cell name="senority" value="3"/>
-					</Row>	
-					<Row>
-						<Cell name="firstname" value="Pippo"/>
-						<Cell name="senority" value="13"/>
-					</Row>				
-				</Rows>
-			</Grid>
-			
-			<Form styleHeight="100%" styleWidth="100%">
-	 			<Label text="Questa è una form"/>
-	 			<Text name="pippo" value="test"/>
-	 			<CheckBox/>
-	 			<ComboBox/>
-	 			<Date/>
-	 			<Display/>
-	 			<File/>
-	 			<Hidden/>
-	 			<HtmlEditor/>
-	 			<Number/>	 			
-	 			<Radio/>
-	 			<Spinner/>
-	 			<TextArea/>
-	 			<Time/> 
-	 			
-	 		 
-	 		 
-	 		 </Form>	
+		 	<AccordionLayout>
+				<Grid id="grid" title="Prova grid"  height="150" styleWidth="100%" store="${userStore}">
+					<Toolbar dock="top">
+						<SearchButton id="cerca" text="Cerca"/>
+					</Toolbar>
+					<Columns>
+						<Column text="Nome" field="firstname"/>
+						<Column text="Anni di esperienza" field="senority"/>
+					</Columns>
+					<Rows>				 
+						<Row>
+							<Cell name="firstname" value="Michael"/>
+							<Cell name="senority" value="3"/>
+						</Row>	
+						<Row>
+							<Cell name="firstname" value="Pippo"/>
+							<Cell name="senority" value="13"/>
+						</Row>				
+					</Rows>
+				</Grid>
+				
+				<Form title="Prova form" styleHeight="300" autoScroll="true">
+		 			<Label text="Questa è una form"/>
+		 			<Text name="pippo" value="test"/>
+		 			<CheckBox/>
+		 			<ComboBox/>
+		 			<Date/>
+		 			<Display/>
+		 			<File/>
+		 			<Hidden/>
+		 			<HtmlEditor/>
+		 			<Number/>	 			
+		 			<Radio/>
+		 			<Spinner/>
+		 			<TextArea/>
+		 			<Time/> 
+		 			
+		 		 
+		 		 
+		 		 </Form>	
+	 		 </AccordionLayout>
 	 		 
 		</Panel>
 	    <Panel title="Menu" width="200" region="west">
-		  <Button id="button" text="Cliccami"  />
-		 	 
+		  		<Button id="button" text="Cliccami"  />		 	 
 	 	</Panel>
 		<Panel title="Menu" width="150" region="east">
 				<Button id="buttone" text="EAST"  />		 	
