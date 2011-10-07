@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<Entity package="com.ff.test.entity" >
+ 	<Name>User</Name> 	 	 
+ 	<Table>Users</Table>
+ 	<KeyGenerator>SEQUENCE</KeyGenerator> 
+ 	<Sequence>users_seq</Sequence>
+	
+	
+	 
+	<Fields inherit="false">
+		<Field name="id" column="id" primaryKey="true" type="number"/>
+		<Field name="firstname" column="firstname" type="text"/>		 
+		<Field name="senority" column="senority" type="number"/>		 		 
+	</Fields>
+	 
+ 
+ </Entity>
