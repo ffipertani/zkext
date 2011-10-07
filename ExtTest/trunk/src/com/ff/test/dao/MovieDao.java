@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.orm.ibatis.SqlMapClientTemplate;
 import org.springframework.orm.ibatis.support.SqlMapClientDaoSupport;
 
 import com.ff.test.domain.MovieSource;
@@ -16,7 +17,8 @@ public class MovieDao extends SqlMapClientDaoSupport {
     }
 
    
-    public List<MovieSource> loadAll() {        
+    public List<MovieSource> loadAll() { 
+    	SqlMapClientTemplate tmp;    
         return (List<MovieSource>) getSqlMapClientTemplate().queryForList(getNS("loadAll"));
     }     
     
