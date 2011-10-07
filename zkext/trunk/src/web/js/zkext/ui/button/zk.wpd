@@ -2,5 +2,7 @@
 
 	<widget name="Button"/>
 	<widget name="SearchButton"/>
+	<widget name="CreateButton"/>
+	<widget name="DeleteButton"/>
 	 
 </package>

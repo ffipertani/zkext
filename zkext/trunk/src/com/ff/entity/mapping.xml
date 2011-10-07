@@ -1,0 +1,112 @@
+<?xml version="1.0"?>
+<!DOCTYPE mapping PUBLIC "-//EXOLAB/Castor Mapping DTD Version 1.0//EN" "http://castor.org/mapping.dtd">
+<mapping>
+	<description>Mapping for EntityDescriptor</description>
+	 
+ <!-- <map-to xml="Entity"/> -->
+	<class name="com.ff.entity.EntityDescriptor" >
+	  
+		<field name="packageName" type="string">
+			<bind-xml name="package" node="attribute"/>
+		</field>
+	
+		<field name="extend" type="string">
+			<bind-xml name="extends" node="attribute"/>
+		</field>
+		
+		<field name="name" type="string">
+			<bind-xml name="Name" node="element"/>
+		</field>
+		
+		<field name="className" type="string">
+			<bind-xml name="ClassName" node="element"/>
+		</field>
+		
+		<field name="dataSource" type="string">
+			<bind-xml name="DataSource" node="element"/>
+		</field>
+		
+		<field name="table" type="string">
+			<bind-xml name="Table" node="element"/>
+		</field>
+		
+		<field name="keyGenerator" type="string">
+			<bind-xml name="KeyGenerator" node="element"/>
+		</field>
+		
+		<field name="sequence" type="string">
+			<bind-xml name="Sequence" node="element"/>
+		</field>
+		
+		<field name="service" type="string">
+			<bind-xml name="Service" node="element"/>
+		</field>
+		
+		<field name="dao" type="string">
+			<bind-xml name="Dao" node="element"/>
+		</field>
+		
+		<field name="inheritFields" type="boolean">
+			<bind-xml name="inherit" node="attribute" location="Fields"/>
+		</field>
+		 		
+		<field name="fieldDescriptors" collection="collection" type="com.ff.entity.FieldDescriptor">
+			<bind-xml name="Field" node="element" location="Fields"/>
+		</field>
+		 
+	</class>
+ 
+	<class name="com.ff.entity.FieldDescriptor">
+		<field name="name" type="string">
+			<bind-xml name="name" node="attribute"/>
+		</field>
+		
+		<field name="primaryKey" type="boolean">
+			<bind-xml name="primaryKey" node="attribute"/>
+		</field>
+		
+		<field name="column" type="string">
+			<bind-xml name="column" node="attribute"/>
+		</field>
+		
+		<field name="entity" type="string">
+			<bind-xml name="entity" node="attribute"/>
+		</field>
+		
+		<field name="entityField" type="string">
+			<bind-xml name="entityField" node="attribute"/>
+		</field>
+		
+		<field name="type" type="string">
+			<bind-xml name="type" node="attribute"/>
+		</field>
+		
+		<field name="many" type="boolean">
+			<bind-xml name="many" node="attribute"/>
+		</field>
+		
+		<field name="relationDescriptor" type="com.ff.entity.RelationDescriptor">
+			<bind-xml name="Relation" node="element" />
+		</field>
+		
+		
+	</class>
+	
+	
+	<class name="com.ff.entity.RelationDescriptor">
+		<field name="table" type="string">
+			<bind-xml name="table" node="attribute"/>
+		</field>
+		
+		<field name="column" type="string">
+			<bind-xml name="column" node="attribute"/>
+		</field>
+		
+		<field name="relationColumn" type="string">
+			<bind-xml name="relationColumn" node="attribute"/>
+		</field>
+	
+	</class>
+	
+	
+</mapping>

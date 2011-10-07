@@ -1,6 +1,6 @@
 package com.ff.event;
 
-import org.zkoss.zk.ui.event.Event;
+import com.ff.Component;
 
 
 public class PropertyChangeEvent  extends Event{
@@ -8,8 +8,8 @@ public class PropertyChangeEvent  extends Event{
 	private String property;
 	private Object value;
 	
-	public PropertyChangeEvent(String property, Object value) {
-		super(NAME);
+	public PropertyChangeEvent(Component target, String property, Object value) {
+		super(NAME, target);
 		this.property = property;
 		this.value = value;
 	}

@@ -1,62 +1,99 @@
 package com.ff.service;
 
-import java.sql.CallableStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class CrudService extends Service implements ICrudService {
+import com.ff.dao.DaoRequest;
+import com.ff.dao.IDao;
+import com.ff.entity.EntityDescriptor;
+import com.ff.entity.EntityFactory;
 
+public class CrudService extends Service implements ICrudService {
+	IDao crudDao; 
+	
+ 
 	@Override
-	public ServiceResponse create(ServiceRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+	public ServiceResponse create(ServiceRequest request)throws RuntimeException {
+		ServiceResponse response = new ServiceResponse();
+		try{						
+			Map model = request.getModel();
+			EntityDescriptor descriptor = EntityFactory.createEntity(request.getEntityDescriptor());
+			DaoRequest daoRequest = new DaoRequest();
+			daoRequest.setEntityDescriptor(descriptor);	
+			
+			String pk = descriptor.getPrimaryKey();
+			if(pk!=null){
+				Object pkValue = model.get(pk);
+				if(pkValue==null){
+					Object id = crudDao.nextVal(daoRequest); 
+					model.put(pk,id);				
+					daoRequest.setModel(model);
+				}
+			}
+													
+			response.setModel(crudDao.insert(daoRequest));
+		}catch(Exception e){
+			throw new RuntimeException(e);
+		}
+		
+		return response;
 	}
 
 	@Override
 	public ServiceResponse delete(ServiceRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		ServiceResponse response = new ServiceResponse();
+		try {		 
+			DaoRequest daoRequest = new DaoRequest();
+			daoRequest.setEntityDescriptor(EntityFactory.createEntity(request.getEntityDescriptor()));			 
+			daoRequest.setModel(request.getModel());
+			
+			response.setModel(crudDao.delete(daoRequest));						
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);			
+		}
+		return response;
 	}
 
 	@Override
 	public ServiceResponse update(ServiceRequest request) {
-		// TODO Auto-generated method stub
-		return null;
+		ServiceResponse response = new ServiceResponse();
+		try {		 
+			DaoRequest daoRequest = new DaoRequest();
+			daoRequest.setEntityDescriptor(EntityFactory.createEntity(request.getEntityDescriptor()));			 
+			daoRequest.setModel(request.getModel());
+			
+			response.setModel(crudDao.update(daoRequest));						
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new RuntimeException(e);			
+		}
+		return response;
 	}
 
 	@Override
 	public ServiceResponse read(ServiceRequest request) {
 		ServiceResponse response = new ServiceResponse();
-		try {
-			List toreturn = new ArrayList();
-			CallableStatement st = dataSource.getConnection().prepareCall(
-					"select * from " + request.getTable());
-
-			ResultSet res = st.executeQuery();
-			List<String> columns = new ArrayList();
-			int count = res.getMetaData().getColumnCount();
-			for (int i = 1; i <= count; i++) {
-				String name = res.getMetaData().getColumnLabel(i);
-				columns.add(name);
-			}
+		try {		 
+			DaoRequest daoRequest = new DaoRequest();
+			daoRequest.setEntityDescriptor(EntityFactory.createEntity(request.getEntityDescriptor()));			 
+			daoRequest.setModel(request.getModel());
 			
-			while (res.next()) {
-				Map map = new HashMap();
-				for (int i = 0; i < count; i++) {
-					Object val = res.getObject(columns.get(i));
-					map.put(columns.get(i).toLowerCase(), val.toString());
-				}
-				toreturn.add(map);
-			}
-			
-			response.setModel(toreturn);
+			response.setModel(crudDao.search(daoRequest));						
 		} catch (Exception e) {
 			e.printStackTrace();
+			throw new RuntimeException(e);			
 		}
 		return response;
 	}
+
+	public IDao getCrudDao() {
+		return crudDao;
+	}
+
+	public void setCrudDao(IDao crudDao) {
+		this.crudDao = crudDao;
+	}
+	
+	
 
 }

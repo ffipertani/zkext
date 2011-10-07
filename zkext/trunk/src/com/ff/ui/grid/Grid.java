@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.ff.Component;
+import com.ff.annotation.Property;
+import com.ff.ui.grid.event.DeleteEvent;
+import com.ff.ui.grid.event.SaveEvent;
 import com.ff.ui.grid.event.SearchEvent;
 import com.ff.ui.panel.Panel;
 import com.ff.ui.store.Store;
@@ -12,14 +14,22 @@ import com.ff.ui.store.Store;
 public class Grid extends Panel{
 	static {
 		registerEvent(SearchEvent.class, Grid.class,  SearchEvent.NAME, CE_IMPORTANT);		
+		registerEvent(SaveEvent.class, Grid.class,  SaveEvent.NAME, CE_IMPORTANT);
+		registerEvent(DeleteEvent.class, Grid.class,  DeleteEvent.NAME, CE_IMPORTANT);
 	}
 	
 	private Store store;
-	  
+	@Property
+	private Boolean rowEditing;  
 	 
 	public List<Column> getColumns(){		
 		Columns columns = getChildOfClass(Columns.class);		 
 		return columns.getChildrenOfClass(Column.class);		
+	}
+	
+	public void addColumn(Column column){
+		Columns columns = getChildOfClass(Columns.class);		 				
+		columns.appendChild(column);
 	}
 	
 	public void clearRows(){
@@ -67,6 +77,15 @@ public class Grid extends Panel{
 		store.addGrid(this);
 	}
 
+	public Boolean getRowEditing() {
+		return rowEditing;
+	}
+
+	public void setRowEditing(Boolean rowEditing) {
+		this.rowEditing = rowEditing;
+	}
+
+	
 	 
 	 
 }

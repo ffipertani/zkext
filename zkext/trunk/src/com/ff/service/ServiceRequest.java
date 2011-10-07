@@ -1,21 +1,24 @@
 package com.ff.service;
 
-public class ServiceRequest {
+import java.util.Map;
 
-	private Object model;
-	private String table;
-	
-	public Object getModel() {
+public class ServiceRequest {
+	private String entityDescriptor;
+	private Map model;
+	 
+	public Map getModel() {
 		return model;
 	}
-	public void setModel(Object model) {
+	public void setModel(Map model) {
 		this.model = model;
 	}
-	public String getTable() {
-		return table;
+	public String getEntityDescriptor() {
+		return entityDescriptor;
 	}
-	public void setTable(String table) {
-		this.table = table;
+	public void setEntityDescriptor(String entityDescriptor) {
+		this.entityDescriptor = entityDescriptor;
 	}
-
+	 
+	
+	
 }

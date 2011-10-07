@@ -1,17 +1,18 @@
 package com.ff.service;
 
-import javax.sql.DataSource;
+import com.ff.dao.Dao;
 
 public class Service {
 
-	protected DataSource dataSource;
+	protected Dao dao;
 
-	public DataSource getDataSource() {
-		return dataSource;
+	public Dao getDao() {
+		return dao;
 	}
 
-	public void setDataSource(DataSource dataSource) {
-		this.dataSource = dataSource;
+	public void setDao(Dao dao) {
+		this.dao = dao;
 	}
-	
+
+		
 }

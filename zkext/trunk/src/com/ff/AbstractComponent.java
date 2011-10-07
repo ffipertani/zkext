@@ -1,20 +1,24 @@
 package com.ff;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.zkoss.json.JSONObject;
 import org.zkoss.zk.ui.Component;
-import org.zkoss.zk.ui.event.Event;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.sys.ContentRenderer;
 
 import com.ff.annotation.Property;
 import com.ff.enums.UpdateType;
+import com.ff.event.Event;
 import com.ff.event.EventConfig;
 import com.ff.factory.UiFactory;
 import com.ff.ui.layout.Layout;
@@ -66,30 +70,39 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 	
 	protected Event createEvent(String command, Component component, Class eventClass,Map data){
 		try{
-			Object event = eventClass.getConstructor(String.class,Component.class).newInstance(command,component);
-			if(!data.isEmpty()){			
-				List keys = (List)data.keySet();
-				for(int i=0;i<keys.size();i++){
-					String key = (String)keys.get(i);
-					Method[] methods = eventClass.getMethods();
-					for(Method method:methods){
-						if(method.getName().equalsIgnoreCase("set"+key)){
-							/*
-							Gson gson = new Gson();
-							gson.fromJson(, classOfT)
-							*/
-							
-							method.invoke(event, data.get(key));
-						}
-					}
-				}
+			Constructor con =  eventClass.getConstructor(Component.class);
+			Event event = (Event)con.newInstance(component);
+			event.setData(data);
+			if(!data.isEmpty()){							
+				Set keys = (Set)data.keySet();
+				this.populateEvent(event, keys, data);
 			}
 			return (Event)event;
 		}catch(Exception e){
+			e.printStackTrace();
 			return null;
 		}
 	}
 	
+	private Event populateEvent(Event event, Set keys, Map data)throws Exception{
+		Iterator it = keys.iterator();
+		while(it.hasNext()){
+			String key = (String)it.next();//(String)keys.i.get(i);
+			Method[] methods = event.getClass().getMethods();
+			for(Method method:methods){
+				if(method.getName().equalsIgnoreCase("set"+key)){
+					/*
+					Gson gson = new Gson();
+					gson.fromJson(, classOfT)
+					*/
+					
+					method.invoke(event, data.get(key));
+				}
+			}
+		}
+		 
+		return event;
+	}
 	
 	public void _init(){
 		initEvents();

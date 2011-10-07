@@ -182,6 +182,18 @@
 		<widget-class>zkext.ui.button.SearchButton</widget-class>
 	</component>
 	
+	<component>
+		<component-name>CreateButton</component-name>
+		<component-class>com.ff.ui.button.CreateButton</component-class>
+		<widget-class>zkext.ui.button.CreateButton</widget-class>
+	</component>
+	
+	<component>
+		<component-name>DeleteButton</component-name>
+		<component-class>com.ff.ui.button.DeleteButton</component-class>
+		<widget-class>zkext.ui.button.DeleteButton</widget-class>
+	</component>
+	
 	
 	<!-- FINE BUTTONS -->
 	<component>

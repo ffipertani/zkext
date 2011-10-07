@@ -1,0 +1,3 @@
+delete from $request.entityDescriptor.table 
+where 
+$dao.writeValuePair($request, "$pk")
