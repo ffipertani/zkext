@@ -1,6 +1,6 @@
- <Page title="Prova EXTJS" apply="${TestCtrl }" styleHeight="100%" styleWidth="100%">
+ <Page title="Prova EXTJS" apply="${TestCtrl}" styleHeight="100%" styleWidth="100%">
 
-	<CrudStore id="userStore" table="Users" crudService="${crudService}"/>  
+	<CrudStore id="userStore" entity="com.ff.test.entity.User" crudService="${crudService}"/>  
 
  	<BorderLayout>
 		<Toolbar region="north" height="40" styleWidth="100%">
@@ -10,13 +10,15 @@
 		<Panel title="Gestione utenti" region="center"  autoScroll="true" >
 		 	<!--  -->
 		 	<AccordionLayout>
-				<Grid id="grid" title="Prova grid"  height="150" styleWidth="100%" store="${userStore}">
+				<Grid id="grid" title="Prova grid" rowEditing="true" height="150" styleWidth="100%" store="${userStore}">
 					<Toolbar dock="top">
 						<SearchButton id="cerca" text="Cerca"/>
+						<CreateButton id="new" text="Nuovo"/>
+						<DeleteButton id="delete" text="Elimina"/>
 					</Toolbar>
 					<Columns>
-						<Column text="Nome" field="firstname"/>
-						<Column text="Anni di esperienza" field="senority"/>
+						<Column text="Nome" name="firstname"/>
+						<Column text="Anni di esperienza" name="senority"/>
 					</Columns>
 					<Rows>				 
 						<Row>

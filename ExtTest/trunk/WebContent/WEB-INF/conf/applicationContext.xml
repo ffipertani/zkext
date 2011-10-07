@@ -17,25 +17,31 @@
         </property>
     </bean>
 
+
 	<import resource="datasourceContext.xml"/>
+	<import resource="ffContext.xml"/>
+	
 	
 	<context:annotation-config />	
 	<context:component-scan base-package="com.ff.test.service"/>
 	<context:component-scan base-package="com.ff.test.controller"/>
 
-	 <zksp:zk-config/>
+	<zksp:zk-config/>
 	<!-- 
-	
-	
 	 -->
 	 
-	<bean id="crudService" class="com.ff.service.CrudService">
+	 
+	<bean id="crudDao" class="com.ff.dao.CrudDao">
         <property name="dataSource" ref="dataSource"/>
     </bean>
-	
+	 		
 	<bean id="movieDao" class="com.ff.test.dao.MovieDao">
         <property name="sqlMapClient" ref="sqlMapClient"/>
     </bean>
+	
+	
+	 
+	
 	
 	 
 </beans>
