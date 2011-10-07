@@ -8,7 +8,7 @@ public class Column extends Container{
 	@Property
 	private String text;
 	@Property
-	private String field;
+	private String name;
 
 	public String getText() {
 		return text;
@@ -18,12 +18,14 @@ public class Column extends Container{
 		this.text = text;
 	}
 
-	public String getField() {
-		return field;
+	public String getName() {
+		return name;
 	}
 
-	public void setField(String field) {
-		this.field = field;
+	public void setName(String name) {
+		this.name = name;
 	}
+
+	 
 
 }

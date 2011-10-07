@@ -22,5 +22,8 @@ public class Store extends AbstractComponent{
 		forms.add(form);
 	}
 		
+	public List<Grid> getGrids(){
+		return grids;
+	}
 	
 }

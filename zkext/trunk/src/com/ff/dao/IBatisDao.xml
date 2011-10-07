@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE sqlMap      
+PUBLIC "-//ibatis.apache.org//DTD SQL Map 2.0//EN"      
+"http://ibatis.apache.org/dtd/sql-map-2.dtd">
+
+<sqlMap namespace="com.ff.dao.IBatisDao">
+     <typeAlias alias="DaoRequest" type="com.ff.dao.DaoRequest" />
+     <typeAlias alias="DaoObject" type="com.ff.dao.DaoObject" />
+             	
+    <select id="load" parameterClass="DaoRequest"  resultClass="DaoObject">
+		SELECT * 
+		FROM $table$		
+	</select>
+	
+	<insert id="insert" parameterClass="DaoRequest">
+		INSERT into $table$ ( 
+		<dynamic>
+			<iterate  property="model.keySet">
+				model.keySet[]
+			</iterate>
+		</dynamic>
+		) 
+		VALUES
+		(
+			<dynamic>
+				<iterate  property="model.keySet">
+					model[model.keySet[]]
+				</iterate>
+			</dynamic>
+		)
+	</insert>  
+	
+	<update id="update" parameterClass="DaoRequest">
+	
+	</update>  	
+	
+	<delete id="delete" parameterClass="DaoRequest">
+		delete from $table$ where #primaryKey# = #model.#primaryKey##
+	</delete>
+        	
+    <!-- 
+	<insert id="insert" parameterClass="Map">
+		<selectKey resultClass="String" keyProperty="id" > 
+			SELECT SEQUENCE_MOVIES.NEXTVAL AS ID FROM DUAL
+        </selectKey>
+	
+		INSERT into MOVIES
+		(id,title,description,duration,original_title,image_url,production,full_title,page_url,category,year,imdb,story) 
+		VALUES
+		(#id#,#title#,#description#,#duration#,#originalTitle#,#imageUrl#,#production#,#fullTitle#,#pageUrl#,#category#,#year#,#imdbKey#,#story#)
+	</insert>
+	
+
+
+	<select>
+		SELECT #selectClause
+		FROM #tableClause
+		WHERE #whereClause
+		GROUPBY #groupByClause
+		ORDERBY #orderByClause
+	</select>
+	
+	
+	
+	
+	<select id="getList" parameterClass="map" resultClass="package.model.Entry">
+		SELECT * FROM (SELECT a.*, ROWNUM rn FROM (SELECT name FROM TB_ENTRY
+        <dynamic prepend="WHERE">
+            <isNotNull prepend="AND" property="name">
+                UPPER(name) LIKE #name#
+            </isNotNull>
+        </dynamic>
+        ORDER BY $sort$ $sortasc$) a WHERE ROWNUM <![CDATA[ <= ]]> #max#) WHERE rn <![CDATA[ >= ]]> #min#
+    </select>
+ -->    	  
+ 
+ 	
+ 
+</sqlMap>

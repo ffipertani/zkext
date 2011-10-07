@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<Entity package="it.ff.test.entity" extends="it.ff.test.entity.Entity">
+ 	<Name>User</Name> 	
+ 	<ClassName>it.ff.test.model.User</ClassName>
+ 	<Table>Users</Table>
+ 	<KeyGenerator>SEQUENCE</KeyGenerator> 
+ 	<Sequence>users_seq</Sequence>
+	<DataSource>${dataSource}</DataSource> 	   	
+	<Service>${userService}</Service>
+	<Dao>it.ff.test.dao.UserDao</Dao>
+	
+	 
+	<Fields inherit="false">
+		<Field name="id" primaryKey="true" type="number"/>
+		<Field name="firstname" column="firstname" type="text"/>
+		<Field name="dateOfBirth" column="birth" type="date"/>
+		<Field type="datetime"/>
+		<Field type="currency"/>
+		<Field type="percentage"/>
+		<Field type="binary"/>
+		<Field type="longtext"/>
+		<Field name="senority" type="number">
+		<!--<Validators>
+				<NotNull/>
+				<MaxValidator max="100"/>
+			</Validators>
+		-->
+		</Field>		
+		<Field name="roles" type="entity" ref="it.ff.test.entity.Role" entityField="iduser" column="id" many="true">
+	    	<Relation table="USERS_ROLES" column="id_user" relationColumn="id_role"/>
+		</Field>
+		
+		<Field name="address" type="entity" ref="it.ff.test.entity.Address" entityField="iduser" column="id" many="false"/>
+	</Fields>
+	 
+ 
+ </Entity>

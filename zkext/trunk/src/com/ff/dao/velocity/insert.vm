@@ -1,0 +1,12 @@
+insert into $request.entityDescriptor.table
+(
+#foreach( $descriptor in $request.entityDescriptor.fieldDescriptors )
+    $descriptor.name #if( $foreach.hasNext ),#end
+#end
+)
+VALUES
+(
+#foreach( $descriptor in $request.entityDescriptor.fieldDescriptors )
+   $dao.writeValue($request, "$descriptor.name") #if( $foreach.hasNext ),#end
+#end
+)
