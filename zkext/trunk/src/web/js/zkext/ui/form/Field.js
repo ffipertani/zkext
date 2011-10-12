@@ -7,11 +7,13 @@ zkext.ui.form.Field = zk.$extends(zkext.ui.Component,{
 		},
 		value:function(val){
 			this.setProperty("value","setValue",val);
-		} 
-	},
-	
-	configure_:function(){
-		this.$supers('configure_');		
-		 					 	
-	} 
+		},
+		label:function(val){
+			this.setProperty("fieldLabel","setLabel",val);
+			//this.setProperty("boxLabel","setLabel",val);
+		},
+		boxLabel:function(val){
+			this.setProperty("boxLabel","setBoxLabel",val);
+		}		
+	}
 });

@@ -17,5 +17,7 @@
 	<widget name="Spinner"/>
 	<widget name="TextArea"/>
 	<widget name="Time"/>
+	<widget name="FieldContainer"/>
+	<widget name="ButtonBar"/>
  
 </package>
