@@ -1,4 +1,4 @@
- <Page title="Prova EXTJS" apply="${TestCtrl}" styleHeight="100%" styleWidth="100%">
+ <Page title="Prova EXTJS" apply="${TestCtrl}" styleHeight="100%" styleWidth="100%" >
 
 	<CrudStore id="userStore" entity="com.ff.test.entity.User" crudService="${crudService}"/>  
 
@@ -9,7 +9,7 @@
 		
 		<Panel title="Gestione utenti" region="center"  autoScroll="true" >
 		 	<!--  -->
-		 	<AccordionLayout>
+		 	<VBoxLayout>
 				<Grid id="grid" title="Prova grid" rowEditing="true" height="150" styleWidth="100%" store="${userStore}">
 					<Toolbar dock="top">
 						<SearchButton id="cerca" text="Cerca"/>
@@ -32,26 +32,48 @@
 					</Rows>
 				</Grid>
 				
-				<Form title="Prova form" styleHeight="300" autoScroll="true">
+				<Form title="Prova form" height="300" width="800" autoScroll="true"  store="${userStore}">
+					<Toolbar dock="top">						
+						<CreateButton  text="Salva"/>						
+					</Toolbar>
 		 			<Label text="Questa è una form"/>
-		 			<Text name="pippo" value="test"/>
-		 			<CheckBox/>
-		 			<ComboBox/>
-		 			<Date/>
-		 			<Display/>
-		 			<File/>
-		 			<Hidden/>
-		 			<HtmlEditor/>
-		 			<Number/>	 			
-		 			<Radio/>
-		 			<Spinner/>
-		 			<TextArea/>
-		 			<Time/> 
+		 			
+		 			<Text label="Nome" name="firstname" value="test"/>
+		 			
+		 			<FieldContainer label="Sesso">		
+		 				<Radio boxLabel="M" name="sesso" value="M"/>
+		 				<Radio boxLabel="F" name="sesso" value="F"/>
+		 			</FieldContainer>
+		 			
+		 			<FieldContainer label="Interessi">
+		 				<CheckBox boxLabel="Calcio" name="interessi" value="calcio"/>
+		 				<CheckBox boxLabel="Nuoto" name="interessi" value="nuoto"/>
+		 			</FieldContainer>
+		 					 			 		 			
+		 			<ButtonBar>
+		 				<ResetButton text="Annulla"/>
+		 				<SaveButton text="Salva"/>
+		 			</ButtonBar>
+		 			
+		 			<Number label="Anni di esperienza" name="senority"/>
+		 			
+		 			<ComboBox label="Regione"/>
+		 			<Date label="Data di nascita" name="birth"/>
+		 			<Time label="Ora di nascita" name="timeofbirth"/> 
+		 			<Display label="Testo normale" value="Questo è un testo normale"/>
+		 			<File label="Foto"/>
+		 			<Hidden label="Un qualiasi campo hidden"/>
+		 			<HtmlEditor label="Descrizione"/>
+		 				 	
+		 			
+		 			<Spinner label="Uno spinner"/>
+		 			<TextArea label="Descrizione breve"/>
+		 			
 		 			
 		 		 
-		 		 
+		 		    
 		 		 </Form>	
-	 		 </AccordionLayout>
+	 		 </VBoxLayout>
 	 		 
 		</Panel>
 	    <Panel title="Menu" width="200" region="west">
