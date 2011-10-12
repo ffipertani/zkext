@@ -4,5 +4,7 @@
 	<widget name="SearchButton"/>
 	<widget name="CreateButton"/>
 	<widget name="DeleteButton"/>
+	<widget name="SaveButton"/>
+	<widget name="ResetButton"/>
 	 
 </package>
