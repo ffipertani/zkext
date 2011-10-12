@@ -9,6 +9,7 @@ import org.zkoss.zk.ui.event.EventListener;
 import com.ff.service.ICrudService;
 import com.ff.service.ServiceRequest;
 import com.ff.service.ServiceResponse;
+import com.ff.ui.form.Form;
 import com.ff.ui.grid.Column;
 import com.ff.ui.grid.Grid;
 
@@ -25,6 +26,36 @@ public class CrudStore extends Store{
 		for(Grid grid:getGrids()){
 			initGrid(grid);
 		}
+		for(Form form:getForms()){
+			initForm(form);
+		}
+		
+	}
+	
+	private void initForm(Form form){
+		form.addEventListener("onSave", new EventListener(){
+
+			@Override
+			public void onEvent(Event event) throws Exception {		 
+				Map data = (Map) event.getData();
+				ServiceResponse serviceResponse = null;
+				ServiceRequest serviceRequest = new ServiceRequest();
+				serviceRequest.setEntityDescriptor(entity);							
+				serviceRequest.setModel(data);
+				if(data.keySet().contains(ATTACHED_FIELD)){
+					String val = (String)data.get(ATTACHED_FIELD);
+					data.remove(ATTACHED_FIELD);
+					if(val==null || !"true".equals(val)){
+						serviceResponse = crudService.create(serviceRequest);						
+					}else{
+						serviceResponse = crudService.update(serviceRequest);
+					}
+				}else{
+					serviceResponse = crudService.create(serviceRequest);			
+				}				 										
+			}
+			
+		});
 	}
 	
 	private void initGrid(Grid grid){
@@ -90,11 +121,7 @@ public class CrudStore extends Store{
 		});
 	}
 
-	public void addGrid(Grid grid){
-		super.addGrid(grid);
-		
-	}
-	
+	 
 	
 	public ICrudService getCrudService() {
 		return crudService;
