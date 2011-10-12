@@ -9,6 +9,10 @@ public class Field extends Component{
 	private String name;
 	@Property
 	private String value;
+	@Property
+	private String label;
+	@Property
+	private String boxLabel;
 
 	public String getName() {
 		return name;
@@ -24,6 +28,22 @@ public class Field extends Component{
 
 	public void setValue(String value) {
 		this.value = value;
+	}
+
+	public String getLabel() {
+		return label;
+	}
+
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	public String getBoxLabel() {
+		return boxLabel;
+	}
+
+	public void setBoxLabel(String boxLabel) {
+		this.boxLabel = boxLabel;
 	}
 	
 	
