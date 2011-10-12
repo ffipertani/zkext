@@ -1,6 +1,6 @@
-/* SearchButton.js*/
+/* SaveButton.js*/
 
-zkext.ui.button.SearchButton = zk.$extends(zkext.ui.button.Button,{	 
+zkext.ui.button.SaveButton = zk.$extends(zkext.ui.button.Button,{	 
 	$define: {	 
 		 
 	},
@@ -12,7 +12,11 @@ zkext.ui.button.SearchButton = zk.$extends(zkext.ui.button.Button,{
 			var par = wgt.parent;
 			while(par){
 				if(zkext.ui.grid.Grid.isInstance(par)){
-					par.search();
+					par.save();
+					break;
+				}
+				if(zkext.ui.form.Form.isInstance(par)){
+					par.save();
 					break;
 				}
 				par = par.parent;
