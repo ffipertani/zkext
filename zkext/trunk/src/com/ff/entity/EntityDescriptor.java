@@ -26,6 +26,11 @@ SEQUENCE	Supports SEQUENCEs in Oracle, PostgreSQL, Interbase and SAP DB
 	<Service>${userService}</Service>	//FAC
 	<Dao>it.ff.test.dao.UserDao</Dao>	//FAC
 	 
+	<select template="com/ff/entity/select.vm"/> //FAC
+	<insert template="com/ff/entity/insert.vm"/> //FAC
+	<update template="com/ff/entity/update.vm"/> //FAC
+	<delete template="com/ff/entity/delete.vm"/> //FAC
+		
 		
 	<Fields inherit="false">
 		<Field name="id" primaryKey="true" type="number"/>
@@ -49,6 +54,7 @@ SEQUENCE	Supports SEQUENCEs in Oracle, PostgreSQL, Interbase and SAP DB
 		//delete cascade
 		<Field name="address" type="entity" ref="it.ff.test.entity.Address" entityField="iduser" column="id" many="false"/>
 	</Fields>
+	
 	
  
  </Entity>
