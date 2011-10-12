@@ -39,31 +39,7 @@ zkext.ui.grid.Grid = zk.$extends(zkext.ui.panel.Panel,{
 	        grid.down('#delete').setDisabled(selections.length === 0);
 	    });
 		*/
-	},	
-	doSearch:function(){
-		this.fire("onSearch");
-	},
-	createNewRow:function(){
-		var obj = this.getColumnModel();		 		 
-		this.getStore().insert(0,obj);
-
-		if(this.getRowEditing()){
-			this.rowEditingPlugin.startEdit(0, 0);
-		}
-		
-	},
-	deleteSelectedRow:function(){
-		var selection = this.ext_.getView().getSelectionModel().getSelection()[0];
-        if (selection) {
-            this.getStore().remove(selection);
-            this.fire("onDelete",selection);
-        }
-	},
-	addRow:function(row){
-		if(this.getStore()!=null){			
-			this.getStore().add(row.toObject());
-		}		
-	},	 
+	},		
 	onChildRemoved_:function(wgt){
 		this.$supers('onChildRemoved_',arguments);
 		if(this.getStore()!=null){			
@@ -105,10 +81,13 @@ zkext.ui.grid.Grid = zk.$extends(zkext.ui.panel.Panel,{
 	createStore:function(){
 		var wgt = this;
 		var rows = this.getRows();
+		var fields = this.getColumnNames();
+		 
 		var store = Ext.create('Ext.data.Store', {		  
 			   // fields:['firstname', 'lastname', 'senority', 'dep', 'hired'],
 			//	autoSync:true,
-				fields:['firstname', 'senority'],
+				//fields:['firstname', 'senority'],
+				fields:fields,
 			    data:rows,
 			    proxy: {
 			        type: 'memory',
@@ -160,6 +139,19 @@ zkext.ui.grid.Grid = zk.$extends(zkext.ui.panel.Panel,{
 		}	
 		return columns;
 	},
+	getColumnNames:function(){
+		var columns = new Array();
+		for (var w = this.firstChild;w;w=w.nextSibling) {		
+			if(zkext.ui.grid.Columns.isInstance(w)){
+				for (var wc = w.firstChild;wc;wc=wc.nextSibling) {		
+					if(zkext.ui.grid.Column.isInstance(wc)){
+						columns.push(wc.getName());
+					}
+				}						
+			}
+		}	
+		return columns;
+	},
 	getRows:function(){
 		var rows = new Array();
 		for (var w = this.firstChild;w;w=w.nextSibling) {		
@@ -180,6 +172,30 @@ zkext.ui.grid.Grid = zk.$extends(zkext.ui.panel.Panel,{
 			eval("obj."+columns[i].dataIndex+"=null");			
 		}
 		return obj;
-	}
+	},
+	search:function(){
+		this.fire("onSearch");
+	},
+	createNewRow:function(){
+		var obj = this.getColumnModel();		 		 
+		this.getStore().insert(0,obj);
+
+		if(this.getRowEditing()){
+			this.rowEditingPlugin.startEdit(0, 0);
+		}
+		
+	},
+	deleteSelectedRow:function(){
+		var selection = this.ext_.getView().getSelectionModel().getSelection()[0];
+        if (selection) {
+            this.getStore().remove(selection);
+            this.fire("onDelete",selection);
+        }
+	},
+	addRow:function(row){
+		if(this.getStore()!=null){			
+			this.getStore().add(row.toObject());
+		}		
+	},	 
 	 
 });
