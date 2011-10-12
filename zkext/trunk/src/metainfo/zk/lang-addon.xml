@@ -125,6 +125,18 @@
 		<component-class>com.ff.ui.form.Time</component-class>
 		<widget-class>zkext.ui.form.Time</widget-class>
 	</component>	 
+	
+	<component>
+		<component-name>FieldContainer</component-name>
+		<component-class>com.ff.ui.form.FieldContainer</component-class>
+		<widget-class>zkext.ui.form.FieldContainer</widget-class>
+	</component>	 
+	
+	<component>
+		<component-name>ButtonBar</component-name>
+		<component-class>com.ff.ui.form.ButtonBar</component-class>
+		<widget-class>zkext.ui.form.ButtonBar</widget-class>
+	</component>	 
 	   
 	
 	<!-- FINE FORM && FIELDS -->
@@ -192,6 +204,18 @@
 		<component-name>DeleteButton</component-name>
 		<component-class>com.ff.ui.button.DeleteButton</component-class>
 		<widget-class>zkext.ui.button.DeleteButton</widget-class>
+	</component>
+	
+	<component>
+		<component-name>SaveButton</component-name>
+		<component-class>com.ff.ui.button.SaveButton</component-class>
+		<widget-class>zkext.ui.button.SaveButton</widget-class>
+	</component>
+	
+	<component>
+		<component-name>ResetButton</component-name>
+		<component-class>com.ff.ui.button.ResetButton</component-class>
+		<widget-class>zkext.ui.button.ResetButton</widget-class>
 	</component>
 	
 	
