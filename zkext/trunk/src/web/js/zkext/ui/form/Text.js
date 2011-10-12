@@ -11,6 +11,7 @@ zkext.ui.form.Text = zk.$extends(zkext.ui.form.Field,{
 		this.$supers('configure_');		
 							 
 	},
+	
 	createExt_:function(){
 		this.newInstance('Ext.form.field.Text');
 	} 	
