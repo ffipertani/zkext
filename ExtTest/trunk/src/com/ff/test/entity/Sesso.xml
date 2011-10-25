@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<Entity package="com.ff.test.entity" >
+ 	<Name>Sesso</Name> 	 	 
+ 	<Table>Sesso</Table>
+ 	 
+	<Fields>
+		<Field name="id" column="id" primaryKey="true" type="number"/>
+		<Field name="nome" column="nome" type="string"/>		 
+		<Field name="descrizione" column="descrizione" type="string"/>		 		 
+	</Fields>
+	 
+ 
+ </Entity>
