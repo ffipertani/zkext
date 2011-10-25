@@ -9,8 +9,9 @@
 	 
 	<Fields inherit="false">
 		<Field name="id" column="id" primaryKey="true" type="number"/>
-		<Field name="firstname" column="firstname" type="text"/>		 
+		<Field name="firstname" column="firstname" type="string"/>		 
 		<Field name="senority" column="senority" type="number"/>		 		 
+		<Field name="sesso" type="entity" ref="com.ff.test.entity.Sesso" entityField="id" column="id_sesso"/>
 	</Fields>
 	 
  

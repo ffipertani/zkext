@@ -22,7 +22,7 @@ public class TestController extends com.ff.controller.Controller{
 	
 	@Override
 	protected void onLoad(){
-		 
+	
 		Row row = newInstance(Row.class);
 		Cell cell = newInstance(Cell.class);
 		cell.setName("firstname");
@@ -32,8 +32,12 @@ public class TestController extends com.ff.controller.Controller{
 		cell.setName("senority");
 		cell.setValue("4");
 		row.addCell(cell);
+		cell = newInstance(Cell.class);
+		cell.setName("sesso.nome");
+		cell.setValue("M");
+		row.addCell(cell);
 		
-		grid.addRow(row);
+		//grid.addRow(row);
 		 
 		
 		button.addEventListener("onClick", new EventListener() {
