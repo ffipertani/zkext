@@ -4,8 +4,15 @@ zkext.ui.panel.Panel = zk.$extends(zkext.ui.container.Container,{
 	$define: {	 
 		title:function(val){
 			this.setProperty("title","setTitle",val);
+		},
+		closable:function(val){
+			this.setProperty("closable",null,val);
+		},
+		collapsible:function(val){
+			this.setProperty("collapsible",null,val);
 		}
 	},
+	
 	getChildren:function(){
 		var childs = new Array();
 		for (var w = this.firstChild;w;w=w.nextSibling) {	
@@ -22,6 +29,7 @@ zkext.ui.panel.Panel = zk.$extends(zkext.ui.container.Container,{
 		}
 		return childs;
 	},
+	
 	getDockedItems:function(){
 		var childs = new Array();
 		for (var w = this.firstChild;w;w=w.nextSibling) {	
@@ -33,15 +41,20 @@ zkext.ui.panel.Panel = zk.$extends(zkext.ui.container.Container,{
 		}
 		return childs;
 	},	
+	
 	configure_:function(){
 		this.$supers('configure_');		
 		var config = this.getInitialConfig();
 		var childs = this.getDockedItems();
+		
+		
+		
 		if(childs.length>0){
 			config.dockedItems = childs;
 		}
 	 
 	},
+	
 	createExt_:function(){		
 		this.newInstance('Ext.panel.Panel');			
 	} 

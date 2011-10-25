@@ -2,143 +2,210 @@
 
 zkext.ui.grid.Grid = zk.$extends(zkext.ui.panel.Panel,{	 
 	$define: {	 
-		 store:function(val){
-			 this.setProperty("store",null,val);
+		 commit:function(val){
+			 for(var i=0;i<this.toCommit.length;i++){
+				 this.toCommit[i].commit();
+			 }
+			 toCommit = new Array();
+		 },
+		 store:function(val){					 
+		 },
+		 storeId:function(val){			 
+			 var page = this.getCurrentPage();
+			 for (var w = page.firstChild;w;w=w.nextSibling) {	
+				 if(w.uuid==val){
+					 this.setStore(w);
+					 break;
+				 }
+			 }			 
 		 },
 		 rowEditing:function(val){
 			
 		 }
 	},	 
+	
+	toCommit:new Array(),
+	
 	rowEditingPlugin:null,
 
+	createExt_:function(name){						
+		this.newInstance("Ext.grid.Panel");	 	
+	},
+		
 	configure_:function(){	
 		this.$supers('configure_',arguments);
 		var wgt = this;
 		var plugins = new Array();
 		var config = this.getInitialConfig();
 		var columns = this.getColumns();
+		
 		if(columns.length>0){
 			config.columns = columns;
 		}
+		 
+		/*	Per cambiare il testo dei bottoni...
+		Ext.grid.RowEditor.prototype.cancelBtnText = "My cancel button text";
+		Ext.grid.RowEditor.prototype.saveBtnText = "My update button text";
+		*/
 		
 		if(this.getRowEditing()){
 			 this.rowEditingPlugin = Ext.create('Ext.grid.plugin.RowEditing');
+
 			 this.rowEditingPlugin.on({
-				scope:this,
-				afteredit:function(roweditor,changes,record,rowIndex){				 	
-				// 	roweditor.record.commit();									
-				}
+				scope:wgt,
+				edit:function(roweditor,changes,record,rowIndex){
+					var data = roweditor.record.data;
+					var obj = this.createObject(data);
+					wgt.fire("onSave",obj);
+					this.toCommit.push( roweditor.record);
+					//	roweditor.record.commit();
+					 				
+				},
+				update:function(store,record,operation,eOpts){
+		    		console.log("Firing onSave event...");
+		    	//	if(operation!='commit'){
+//		    			wgt.fire("onSave",record.data);
+//			    		record.commit();		
+//		    		}			    		
+		    	},
+	            write: function(store, operation){
+	            	alert("WRTITE");
+	                var record = operation.getRecords()[0],
+	                    name = Ext.String.capitalize(operation.action),
+	                    verb;
+	                    
+	                    
+	                if (name == 'Destroy') {
+	                    record = operation.records[0];
+	                    verb = 'Destroyed';
+	                } else {
+	                    verb = name + 'd';
+	                }
+	                Ext.example.msg(name, Ext.String.format("{0} user: {1}", verb, record.getId()));
+	                
+	            }
 			 });
 			 plugins.push(this.rowEditingPlugin);
 		}
 		
+		config.store = this.createStore();
+		//config.store = this.getExtStore();
 		config.plugins = plugins;
+		config.listeners= {
+	    	selectionchange:function(model,selected,opts){
+	    		var id = selected[0].data.__model_id;
+	    		var o = new Object();
+	    		o.id = Number(id);	    		
+	    		wgt.fire("onSelectionChange",o);
+	    	},
+	    	afterrender:function(component,eOpts){
+	    		wgt._refreshOverflow();	    			    		
+			}	   
+		};
 		
 		/* QUESTO DISABILITA I PULSANTI QUANDO NON E' SELEZIONATO NIENTE 
 		grid.getSelectionModel().on('selectionchange', function(selModel, selections){
 	        grid.down('#delete').setDisabled(selections.length === 0);
 	    });
 		*/
-	},		
+	},	
+	
+	createObject:function(data){
+		var obj = new Object();
+		for (var key in data) {
+			if(key.indexOf(ESCAPE_FIELD) != -1){
+				var keys = key.split(ESCAPE_FIELD);
+				var curObj = obj;
+				for(var i=0;i<keys.length-1;i++){
+					var curKey = keys[i];
+					eval("var child = curObj."+curKey+";");
+					if(child == undefined ){
+						eval("curObj."+curKey+"=new Object();");
+						eval("curObj = curObj."+curKey+";");
+					}
+				}	
+				eval("curObj."+keys[keys.length-1]+"=data[key];")
+			}else{
+				obj[key] = data[key];
+			}
+		}
+		return obj;
+	},
+	
+	createStore:function(){
+		var store = Ext.create('Ext.data.Store', {
+		    //model: 'User',
+			fields: this.getFields(),
+			data:this.getRows(),
+		    proxy : {
+			        type: 'memory',
+			        reader: {
+			            type: 'json'
+			       //     root: 'users'
+			        }
+			    }
+		});
+		return store;
+	},
+	
 	onChildRemoved_:function(wgt){
 		this.$supers('onChildRemoved_',arguments);
-		if(this.getStore()!=null){			
-			this.getStore().removeAll();
+		if(this.getExtStore()!=null){			
+			this.getExtStore().removeAll();
 		}
 	},
+	
 	onChildAdded_:function(wgt){
 		this.$supers('onChildAdded_',arguments);
 		if(this.ext_==null){
 			return;
 		}
 		if(zkext.ui.grid.Rows.isInstance(wgt)){
-			this.getStore().removeAll();
+			this.getExtStore().removeAll();
 			try{
 				 //Da errore e non si è capito bene il perchè...
-				this.getStore().add(this.getRows());
+				this.getExtStore().add(this.getRows());			
+				this._refreshOverflow();				
 			}catch(err){}
 		}
-	},
-	createExt_:function(name){		
 		
-		/*
-		var store = Ext.create('Ext.data.Store', {		  
-		    fields:['firstname', 'lastname', 'senority', 'dep', 'hired'],
-		    data:[
-		        {firstname:"Michael", lastname:"Scott", senority:7, dep:"Manangement", hired:"01/10/2004"},
-		        {firstname:"Dwight", lastname:"Schrute", senority:2, dep:"Sales", hired:"04/01/2004"},
-		        {firstname:"Jim", lastname:"Halpert", senority:3, dep:"Sales", hired:"02/22/2006"},
-		        {firstname:"Kevin", lastname:"Malone", senority:4, dep:"Accounting", hired:"06/10/2007"},
-		        {firstname:"Angela", lastname:"Martin", senority:5, dep:"Accounting", hired:"10/21/2008"}
-		    ]
-		});
-			*/
-					
-		this.createStore();
-		this.newInstance("Ext.grid.Panel");		
-				
 	},
-	createStore:function(){
-		var wgt = this;
-		var rows = this.getRows();
-		var fields = this.getColumnNames();
-		 
-		var store = Ext.create('Ext.data.Store', {		  
-			   // fields:['firstname', 'lastname', 'senority', 'dep', 'hired'],
-			//	autoSync:true,
-				//fields:['firstname', 'senority'],
-				fields:fields,
-			    data:rows,
-			    proxy: {
-			        type: 'memory',
-			        reader: {
-			            type: 'json'
-			       //     root: 'users'
-			        }
-			    },
-			    listeners: {
-			    	update:function(store,record,operation,eOpts){
-			    		console.log("Firing onSave event...");
-			    		if(operation!='commit'){
-			    			wgt.fire("onSave",record.data);
-				    		record.commit();		
-			    		}			    		
-			    	},
-		            write: function(store, operation){
-		            	alert("WRTITE");
-		                var record = operation.getRecords()[0],
-		                    name = Ext.String.capitalize(operation.action),
-		                    verb;
-		                    
-		                    
-		                if (name == 'Destroy') {
-		                    record = operation.records[0];
-		                    verb = 'Destroyed';
-		                } else {
-		                    verb = name + 'd';
-		                }
-		                Ext.example.msg(name, Ext.String.format("{0} user: {1}", verb, record.getId()));
-		                
-		            }
-		        }
-			    
-			});
-			/* */
-		this.setStore(store);
+	
+	_refreshOverflow:function(){
+		if(this.getAutoScroll()){
+			var dom = this.ext_.getEl().down(".x-grid-view",true);
+			dom.style.overflow="auto";
+			this.ext_.view.refresh(true);
+		}
 	},
+		
+	getFields:function(){
+		 return this.getColumnNames();
+	},
+	 
+	getExtStore:function(){
+		if(this.ext_ ==null || this.ext_.store==null){
+			return null;
+		}
+		return this.ext_.store;
+	},	
+		
 	getColumns:function(){
 		var columns = new Array();
 		for (var w = this.firstChild;w;w=w.nextSibling) {		
 			if(zkext.ui.grid.Columns.isInstance(w)){
 				for (var wc = w.firstChild;wc;wc=wc.nextSibling) {		
 					if(zkext.ui.grid.Column.isInstance(wc)){
-						columns.push(wc.ext_);
+						if(wc.getVisible()){
+							columns.push(wc.ext_);
+						}
 					}
 				}						
 			}
 		}	
 		return columns;
 	},
+	
 	getColumnNames:function(){
 		var columns = new Array();
 		for (var w = this.firstChild;w;w=w.nextSibling) {		
@@ -152,19 +219,22 @@ zkext.ui.grid.Grid = zk.$extends(zkext.ui.panel.Panel,{
 		}	
 		return columns;
 	},
+	
 	getRows:function(){
 		var rows = new Array();
 		for (var w = this.firstChild;w;w=w.nextSibling) {		
 			if(zkext.ui.grid.Rows.isInstance(w)){
 				for (var wc = w.firstChild;wc;wc=wc.nextSibling) {		
-					if(zkext.ui.grid.Row.isInstance(wc)){						 	
-						rows.push(wc.toObject());
+					if(zkext.ui.grid.Row.isInstance(wc)){	
+						var obj = wc.toObject();					 
+						rows.push(obj);
 					}
 				}					
 			}
 		}	
 		return rows;
 	},
+	
 	getColumnModel:function(){
 		var obj = new Object();
 		var columns = this.getColumns();
@@ -173,28 +243,34 @@ zkext.ui.grid.Grid = zk.$extends(zkext.ui.panel.Panel,{
 		}
 		return obj;
 	},
+	
 	search:function(){
 		this.fire("onSearch");
 	},
+	
 	createNewRow:function(){
 		var obj = this.getColumnModel();		 		 
-		this.getStore().insert(0,obj);
+		this.getExtStore().insert(0,obj);
 
 		if(this.getRowEditing()){
 			this.rowEditingPlugin.startEdit(0, 0);
 		}
 		
 	},
+	
 	deleteSelectedRow:function(){
 		var selection = this.ext_.getView().getSelectionModel().getSelection()[0];
         if (selection) {
-            this.getStore().remove(selection);
+            this.getExtStore().remove(selection);
             this.fire("onDelete",selection);
         }
 	},
+	
 	addRow:function(row){
-		if(this.getStore()!=null){			
-			this.getStore().add(row.toObject());
+		if(this.getExtStore()!=null){			
+			var obj = row.toObject();
+			alert(obj);
+			this.getExtStore().add(obj);				
 		}		
 	},	 
 	 

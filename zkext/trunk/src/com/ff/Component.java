@@ -74,6 +74,8 @@ public class Component extends AbstractComponent{
 	Integer flex;
 	@Property 
 	String anchor;
+	@Property 
+	Float columnWidth;
 	
 	public String getBorder() {
 		return border;
@@ -206,6 +208,12 @@ public class Component extends AbstractComponent{
 	}
 	public void setAnchor(String anchor) {
 		this.anchor = anchor;
+	}
+	public Float getColumnWidth() {
+		return columnWidth;
+	}
+	public void setColumnWidth(Float columnWidth) {
+		this.columnWidth = columnWidth;
 	}
 	   
 	

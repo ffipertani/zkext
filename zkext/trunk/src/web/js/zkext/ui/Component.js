@@ -70,6 +70,9 @@ zkext.ui.Component = zk.$extends(zkext.ui.AbstractComponent,{
 		},
 		anchor:function(val){
 			this.setProperty("anchor",null,val);
+		},
+		columnWidth:function(val){
+			this.setProperty("columnWidth",null,val);
 		}
 	}
 });

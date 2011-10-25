@@ -1,9 +1,8 @@
 package com.ff.entity;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
-import com.ff.dao.DaoRequest;
 
  
 
@@ -74,7 +73,7 @@ public class EntityDescriptor {
 	private String service;
 	private String dao;
 	private Boolean inheritFields;
-	private Collection fieldDescriptors;
+	private Collection<FieldDescriptor> fieldDescriptors;
 					
 	
 	public String getPrimaryKey(){
@@ -85,6 +84,32 @@ public class EntityDescriptor {
 			}
 		}
 		return null;
+	}
+	
+	public List<FieldDescriptor> getEntityFields(){
+		List<FieldDescriptor> toReturn = new ArrayList<FieldDescriptor>();
+		List<FieldDescriptor> descriptors = (List)getFieldDescriptors();
+		for(FieldDescriptor fd: descriptors){
+			if(fd.getType().equals("entity")){
+				toReturn.add(fd);
+			}
+		}
+		return toReturn;
+	}
+	
+	public List<FieldDescriptor> getSimpleFields(){
+		List<FieldDescriptor> toReturn = new ArrayList<FieldDescriptor>();
+		List<FieldDescriptor> descriptors = (List)getFieldDescriptors();
+		for(FieldDescriptor fd: descriptors){
+			if(!fd.getPrimaryKey() && !fd.getType().equals("entity")){
+				toReturn.add(fd);
+			}
+		}
+		return toReturn;
+	}
+	
+	public String getFullName(){
+		return packageName+"."+name;
 	}
 	
 	
@@ -198,7 +223,7 @@ public class EntityDescriptor {
 	}
 
 
-	public Collection getFieldDescriptors() {
+	public Collection<FieldDescriptor> getFieldDescriptors() {
 		return fieldDescriptors;
 	}
 

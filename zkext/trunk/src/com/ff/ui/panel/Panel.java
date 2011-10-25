@@ -19,6 +19,7 @@ public class Panel extends AbstractPanel{
 	//bbar
 	private String buttonAlign;
 	//buttons
+	@Property
 	private Boolean closable;
 	private String closeAction;
 	private Boolean collapseDirection;
@@ -26,6 +27,7 @@ public class Panel extends AbstractPanel{
 	private String collapseMode;
 	private Boolean collapsed;
 	private String collapsedCls;
+	@Property
 	private Boolean collapsible;
 	//dockedItems
 	//fbar
@@ -75,5 +77,23 @@ public class Panel extends AbstractPanel{
 	public String getTitle(){
 		return title;
 	}
+
+	public Boolean getClosable() {
+		return closable;
+	}
+
+	public void setClosable(Boolean closable) {
+		this.closable = closable;
+	}
+
+	public Boolean getCollapsible() {
+		return collapsible;
+	}
+
+	public void setCollapsible(Boolean collapsible) {
+		this.collapsible = collapsible;
+	}
+	
+	
 	
 }

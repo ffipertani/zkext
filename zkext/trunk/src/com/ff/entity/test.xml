@@ -9,10 +9,11 @@
 	<Service>${userService}</Service>
 	<Dao>it.ff.test.dao.UserDao</Dao>
 	
+	<!-- <Readonly>true</Readonly>  -->
 	 
 	<Fields inherit="false">
 		<Field name="id" primaryKey="true" type="number"/>
-		<Field name="firstname" column="firstname" type="text"/>
+		<Field name="firstname" column="firstname" type="string"/>
 		<Field name="dateOfBirth" column="birth" type="date"/>
 		<Field type="datetime"/>
 		<Field type="currency"/>
@@ -26,7 +27,7 @@
 			</Validators>
 		-->
 		</Field>		
-		<Field name="roles" type="entity" ref="it.ff.test.entity.Role" entityField="iduser" column="id" many="true">
+		<Field name="roles" type="entity" entityRef="it.ff.test.entity.Role" entityField="iduser" column="id" many="true">
 	    	<Relation table="USERS_ROLES" column="id_user" relationColumn="id_role"/>
 		</Field>
 		

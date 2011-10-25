@@ -6,7 +6,7 @@ zkext.ui.form.Field = zk.$extends(zkext.ui.Component,{
 			this.setProperty("name",null,val);
 		},
 		value:function(val){
-			this.setProperty("value","setValue",val);
+			this.setProperty("value","setValue",val+"");
 		},
 		label:function(val){
 			this.setProperty("fieldLabel","setLabel",val);

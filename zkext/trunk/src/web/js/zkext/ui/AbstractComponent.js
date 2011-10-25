@@ -6,13 +6,18 @@ zkext.ui.AbstractComponent = zk.$extends(zul.Widget,{
 			
 		}
 	},
-	ext_:null,	 	 
-	configure_:function(){	
+	initialConfig:function(){
 		var config= this.getInitialConfig();
 		if(config==undefined){
 			config = new Object();
 			this.setInitialConfig(config);
-		}		
+		} 
+		return config;
+	},
+	
+	ext_:null,	 	 
+	configure_:function(){	
+		var config= this.initialConfig();
 		var childs = this.getChildren();
 		if(childs.length>0){
 			config.items = childs;
@@ -56,18 +61,20 @@ zkext.ui.AbstractComponent = zk.$extends(zul.Widget,{
 			}
 			var toCall = "this.ext_."+functionName+"(";
 			for(var i=2;i<arguments.length;i++){
-				toCall = toCall+arguments[i];
-				if(i+1<arguments.length){
+				if(typeof arguments[i] == 'string'){
+					toCall = toCall+"'"+arguments[i]+"'";	
+				}else{
+					toCall = toCall+arguments[i];
+				}
+				
+				if(i+1<arguments.length){					
 					toCall = toCall+",";
 				}
 			}
 			toCall = toCall+");";
 			eval(toCall);			
-		}else{		
-			if(this.getInitialConfig() == null){
-				this.setInitialConfig(new Object());
-			}
-			var toEval = "this.getInitialConfig()."+property+"=arguments[2]";
+		}else{					
+			var toEval = "this.initialConfig()."+property+"=arguments[2]";
 			eval(toEval);			
 		}
 	},

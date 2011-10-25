@@ -1,8 +1,10 @@
 /* FieldContainer.js*/
 
-zkext.ui.form.FieldContainer = zk.$extends(zkext.ui.form.Field,{	 
+zkext.ui.form.FieldContainer = zk.$extends(zkext.ui.container.Container,{	 
 	$define: {	 
-		 
+		 label:function(val){
+			 this.setProperty("fieldLabel","setLabel",val);
+		 }
 	},
 	configure_:function(){	
 		this.$supers('configure_',arguments);		

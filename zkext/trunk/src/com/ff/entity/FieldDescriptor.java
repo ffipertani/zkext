@@ -3,13 +3,13 @@ package com.ff.entity;
 import java.util.List;
 
 public class FieldDescriptor {
-	private Boolean primaryKey;
+	private Boolean primaryKey = false;
 	private String name;
 	private String column;
 	private String entity;
 	private String entityField;
 	private String type;
-	private Boolean many;
+	private Boolean many = false;
 	private RelationDescriptor relationDescriptor;
 	private List validators;
 	
