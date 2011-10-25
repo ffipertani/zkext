@@ -70,7 +70,7 @@
 		</field>
 		
 		<field name="entity" type="string">
-			<bind-xml name="entity" node="attribute"/>
+			<bind-xml name="ref" node="attribute"/>
 		</field>
 		
 		<field name="entityField" type="string">

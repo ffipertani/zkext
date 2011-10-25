@@ -8,19 +8,26 @@ import com.ff.annotation.Property;
 import com.ff.ui.button.event.DeleteEvent;
 import com.ff.ui.button.event.SaveEvent;
 import com.ff.ui.button.event.SearchEvent;
+import com.ff.ui.grid.event.SelectionChangeEvent;
 import com.ff.ui.panel.Panel;
 import com.ff.ui.store.Store;
+import com.ff.utils.MapUtils;
 
 public class Grid extends Panel{
 	static {
 		registerEvent(SearchEvent.class, Grid.class,  SearchEvent.NAME, CE_IMPORTANT);		
 		registerEvent(SaveEvent.class, Grid.class,  SaveEvent.NAME, CE_IMPORTANT);
 		registerEvent(DeleteEvent.class, Grid.class,  DeleteEvent.NAME, CE_IMPORTANT);
+		registerEvent(SelectionChangeEvent.class, Grid.class,  SelectionChangeEvent.NAME, CE_IMPORTANT);
 	}
 	
 	private Store store;
 	@Property
+	private String storeId;
+	@Property
 	private Boolean rowEditing;  
+	@Property
+	private Boolean commit;
 	 
 	public List<Column> getColumns(){		
 		Columns columns = getChildOfClass(Columns.class);		 
@@ -53,14 +60,29 @@ public class Grid extends Panel{
 	
 	public void addRow(Map map){
 		Row row = newInstance(Row.class);
+		List<Column> columns = getColumns();
+		for(Column column:columns){
+			String name = column.getName();
+			Object val = MapUtils.getValue(name,map);//map.get(key);
+			
+			Cell cell = newInstance(Cell.class);
+			cell.setName(name);
+			if(val==null){
+				val = "";
+			}
+			cell.setValue(val.toString());
+			row.addCell(cell);
+		}
+		/*
 		Set<String> keys = (Set<String>)map.keySet();
 		for(String key:keys){
-			Object val = map.get(key);
+			Object val = MapUtils.getValue(key,map);//map.get(key);
 			Cell cell = newInstance(Cell.class);
 			cell.setName(key);
 			cell.setValue(val.toString());
 			row.addCell(cell);
 		}
+		*/
 		addRow(row);
 	}
 	
@@ -75,6 +97,7 @@ public class Grid extends Panel{
 	public void setStore(Store store) {
 		this.store = store;
 		store.addGrid(this);
+		storeId = store.getUuid();
 	}
 
 	public Boolean getRowEditing() {
@@ -83,6 +106,22 @@ public class Grid extends Panel{
 
 	public void setRowEditing(Boolean rowEditing) {
 		this.rowEditing = rowEditing;
+	}
+
+	public String getStoreId() {
+		return storeId;
+	}
+
+	public void setStoreId(String storeId) {
+		this.storeId = storeId;
+	}
+
+	public Boolean getCommit() {
+		return commit;
+	}
+
+	public void setCommit(Boolean commit) {
+		this.commit = commit;
 	}
 
 	

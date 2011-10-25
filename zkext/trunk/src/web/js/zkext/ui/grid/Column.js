@@ -6,7 +6,12 @@ zkext.ui.grid.Column = zk.$extends(zkext.ui.container.Container,{
 			 this.setProperty("text","setText",val);
 		 },
 		 name:function(val){
+			 val = val.replace(".",ESCAPE_FIELD);
+			 this._name = val;
 			 this.setProperty("dataIndex",null,val);
+		 },
+		 visible:function(val){
+			 
 		 }
 	},	
 	configure_:function(){	

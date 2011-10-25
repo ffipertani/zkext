@@ -59,12 +59,22 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 	}
 	
 	private Class searchEvent(Class cls, String name){
-		List<EventConfig> configs = events.get(cls);
-		for(EventConfig config:configs){
-			if(config.getName().equals(name)){
-				return config.getEventClass();
+		Class currentClass = this.getRealClass();
+		
+		while(currentClass!=org.zkoss.zk.ui.AbstractComponent.class){
+			try{
+				List<EventConfig> configs = events.get(currentClass);
+				for(EventConfig config:configs){
+					if(config.getName().equals(name)){
+						return config.getEventClass();
+					}
+				}
+			}catch(Exception e){
+				
 			}
+			currentClass=currentClass.getSuperclass();
 		}
+		
 		return null;
 	}
 	
@@ -115,6 +125,7 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 	
 	protected synchronized void initEvents(){
 		Annotation[] annotations = this.getRealClass().getAnnotations();
+		
 	}
 	
 	protected synchronized void initProperties(){		
@@ -184,7 +195,7 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 	@Override
 	public void service(org.zkoss.zk.au.AuRequest request, boolean everError) {
 		final String command = request.getCommand();
-		final com.ff.Component component = (com.ff.Component) request.getComponent();
+		final AbstractComponent component = (AbstractComponent) request.getComponent();
 		final Map data=request.getData();
 		Boolean handled = false;
 		Class eventClass = searchEvent(component.getRealClass(),command);
@@ -238,7 +249,7 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 	}
 	
 	public void updateClient(String property, Object value){
-		smartUpdate(property, value);
+		smartUpdate(property, value, true);
 	}
 	
 	public Map<String,PropertyField> getProperties(){

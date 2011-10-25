@@ -4,11 +4,15 @@ zkext.ui.form.Form = zk.$extends(zkext.ui.panel.Panel,{
 	$define: {	 
 		text:function(val){
 			this.setProperty("text","setText",val);
+		},
+		model:function(val){
+			this.loadModel(val);
 		}
 	},
 	
 	configure_:function(){
-		var config = this.getInitialConfig();
+		var config = this.initialConfig();
+		
 	/*
 		config.buttons = [{
 	        text: 'Reset',
@@ -34,7 +38,10 @@ zkext.ui.form.Form = zk.$extends(zkext.ui.panel.Panel,{
 	        }
 	    }];
 	    */
-		config.buttons = this.getButtons();
+		var buttons = this.getButtons();
+		if(buttons!=null){
+			config.buttons = buttons;
+		}
 		this.$supers('configure_');				 				
 		
 	},
@@ -70,5 +77,8 @@ zkext.ui.form.Form = zk.$extends(zkext.ui.panel.Panel,{
 	},
 	reset:function(){
 		this.ext_.getForm().reset();
+	},
+	loadModel:function(model){
+		this.ext_.loadRecord(model);
 	}
 });

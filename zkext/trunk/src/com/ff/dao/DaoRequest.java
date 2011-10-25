@@ -6,6 +6,7 @@ import com.ff.entity.EntityDescriptor;
 
 public class DaoRequest {
 	private EntityDescriptor entityDescriptor; 	
+	private FilterCondition filterCondition;
 	private Map model;
 		 
 	
@@ -20,6 +21,12 @@ public class DaoRequest {
 	}
 	public void setEntityDescriptor(EntityDescriptor entityDescriptor) {
 		this.entityDescriptor = entityDescriptor;
+	}
+	public FilterCondition getFilterCondition() {
+		return filterCondition;
+	}
+	public void setFilterCondition(FilterCondition filterCondition) {
+		this.filterCondition = filterCondition;
 	}
 	 
 	 

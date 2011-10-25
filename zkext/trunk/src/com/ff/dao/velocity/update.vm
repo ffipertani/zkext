@@ -1,9 +1,7 @@
 update $request.entityDescriptor.table
 set 
-#foreach( $descriptor in $request.entityDescriptor.fieldDescriptors )
-   #if($descriptor.column!=$pk)
-   $dao.writeValuePair($request, "$descriptor.column") #if( $foreach.hasNext ),#end
-   #end
+#foreach( $descriptor in $request.entityDescriptor.simpleFields )
+	$dao.writeValuePair($request, "$descriptor.column") #if( $foreach.hasNext ),#end
 #end
 
 where 
