@@ -15,11 +15,7 @@
 		<widget-class>zkext.ui.store.Store</widget-class>
 	</component>
 	
-	<component>
-		<component-name>CrudStore</component-name>
-		<component-class>com.ff.ui.store.CrudStore</component-class>
-		<widget-class>zkext.ui.store.Store</widget-class>
-	</component>
+	 
 	
 	
 	<!-- FORM && FIELD -->
@@ -207,6 +203,12 @@
 	</component>
 	
 	<component>
+		<component-name>EditButton</component-name>
+		<component-class>com.ff.ui.button.EditButton</component-class>
+		<widget-class>zkext.ui.button.EditButton</widget-class>
+	</component>
+	
+	<component>
 		<component-name>SaveButton</component-name>
 		<component-class>com.ff.ui.button.SaveButton</component-class>
 		<widget-class>zkext.ui.button.SaveButton</widget-class>
@@ -221,9 +223,9 @@
 	
 	<!-- FINE BUTTONS -->
 	<component>
-		<component-name>Page</component-name>
-		<component-class>com.ff.ui.page.Page</component-class>
-		<widget-class>zkext.ui.page.Page</widget-class>
+		<component-name>Application</component-name>
+		<component-class>com.ff.ui.application.Application</component-class>
+		<widget-class>zkext.ui.application.Application</widget-class>
 	</component>
 	
  
@@ -234,9 +236,66 @@
 	</component>
 	
 	<component>
+		<component-name>TabPanel</component-name>
+		<component-class>com.ff.ui.tab.TabPanel</component-class>
+		<widget-class>zkext.ui.tab.TabPanel</widget-class>
+	</component>
+	
+	<component>
 		<component-name>Toolbar</component-name>
 		<component-class>com.ff.ui.toolbar.Toolbar</component-class>
 		<widget-class>zkext.ui.toolbar.Toolbar</widget-class>
+	</component>
+	
+	
+	<component>
+		<component-name>TreePanel</component-name>
+		<component-class>com.ff.ui.tree.TreePanel</component-class>
+		<widget-class>zkext.ui.tree.TreePanel</widget-class>
+	</component>
+	
+	<component>
+		<component-name>TreeItem</component-name>
+		<component-class>com.ff.ui.tree.TreeItem</component-class>
+		<widget-class>zkext.ui.tree.TreeItem</widget-class>
+	</component>
+	
+	<component>
+		<component-name>Menu</component-name>
+		<component-class>com.ff.ui.menu.Menu</component-class>
+		<widget-class>zkext.ui.menu.Menu</widget-class>
+	</component>
+	
+	<component>
+		<component-name>MenuItem</component-name>
+		<component-class>com.ff.ui.menu.MenuItem</component-class>
+		<widget-class>zkext.ui.menu.MenuItem</widget-class>
+	</component>
+	
+	<component>
+		<component-name>View</component-name>
+		<component-class>com.ff.ui.view.View</component-class>
+		<widget-class>zkext.ui.view.View</widget-class>
+	</component>
+	
+	<component>
+		<component-name>ViewStack</component-name>
+		<component-class>com.ff.ui.view.ViewStack</component-class>
+		<widget-class>zkext.ui.view.ViewStack</widget-class>
+	</component>
+	
+	
+	
+	<component>
+		<component-name>Window</component-name>
+		<component-class>com.ff.ui.window.Window</component-class>
+		<widget-class>zkext.ui.window.Window</widget-class>
+	</component>
+	
+	<component>
+		<component-name>MessageBox</component-name>
+		<component-class>com.ff.ui.window.MessageBox</component-class>
+		<widget-class>zkext.ui.window.MessageBox</widget-class>
 	</component>
 	
 	
