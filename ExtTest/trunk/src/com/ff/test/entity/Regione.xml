@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<Entity package="com.ff.test.entity" >
+ 	<Name>Regione</Name> 	 	 
+ 	<Table>Regioni</Table>
+ 	 
+	<Fields>
+		<Field name="id" column="id" primaryKey="true" type="number"/>
+		<Field name="nome" column="nome" type="string"/>		 			 		
+	</Fields>
+	 
+ 
+ </Entity>

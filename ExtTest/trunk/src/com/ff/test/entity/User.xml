@@ -11,7 +11,11 @@
 		<Field name="id" column="id" primaryKey="true" type="number"/>
 		<Field name="firstname" column="firstname" type="string"/>		 
 		<Field name="senority" column="senority" type="number"/>		 		 
-		<Field name="sesso" type="entity" ref="com.ff.test.entity.Sesso" entityField="id" column="id_sesso"/>
+		<Field name="dataNascita" column="data_nascita" type="date"/>
+		<Field name="descrizione" column="descrizione" type="string"/>
+		<Field name="descrizioneBreve" column="descrizione_breve" type="string"/>
+		<Field name="sesso" type="entity" ref="com.ff.test.entity.Sesso" entityField="id" column="sesso"/>
+		<Field name="regione" type="entity" ref="com.ff.test.entity.Regione" entityField="id" column="regione"/>
 	</Fields>
 	 
  

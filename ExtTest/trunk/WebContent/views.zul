@@ -1,0 +1,25 @@
+<Application title="Prova EXTJS" >
+	<BorderLayout>
+		<Toolbar region="north" height="40" styleWidth="100%">
+			<Label text="Prova ext" />
+		</Toolbar>
+					
+		<ViewStack id="vs" region="center"/>
+			 							
+		<Menu title="Menu" region="west" width="200" viewStack="${vs}">			 			 
+			<MenuItem text="Gestione utenti" view="com.ff.test.view.TabPanel"/>
+			<MenuItem text="MasterDetail" view="com.ff.test.view.MasterDetail"/>	
+			<MenuItem text="Controller" view="com.ff.test.view.Controller"/>			
+			<MenuItem text="Gestione ordini" view="com.ff.test.view.Grid"/> 		 
+		</Menu>		 
+		
+		
+		
+		
+		
+		<Toolbar region="south" height="20">
+			<Label text="Footer"/>
+		</Toolbar>
+		
+	</BorderLayout>
+</Application>

@@ -1,0 +1,25 @@
+<View title="Prova grid">
+	<Grid>
+		<Toolbar dock="top">
+			<Button id="btn" text="Pulsante" />
+		</Toolbar>
+		<Toolbar dock="bottom">
+			<Label text="saluta" />
+		</Toolbar>
+		<Columns>
+			<Column text="Nome" name="firstname" width="120" />
+			<Column text="Anni di esperienza" name="senority" width="120" />
+		</Columns>
+		<Rows>
+			<Row>
+				<Cell name="firstname" value="Michael" />
+				<Cell name="senority" value="3" />
+	
+			</Row>
+			<Row>
+				<Cell name="firstname" value="Pippo" />
+				<Cell name="senority" value="13" />
+			</Row>
+		</Rows>
+	</Grid>
+</View>

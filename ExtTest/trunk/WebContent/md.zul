@@ -1,0 +1,36 @@
+ <Page title="Master - Detail" apply="${TestCtrl}" styleHeight="100%" styleWidth="100%" >
+
+	<Store id="userStore" entity="com.ff.test.entity.User" crudService="${crudService}"/>  
+
+ 	<BorderLayout>
+						 		 	
+		<Form title="Edit ordine" flex="1" region="center" styleHeight="400" autoScroll="true"  store="${userStore}">
+			  		  			
+ 			<Text label="Nome" name="firstname" value="test"/>
+ 			
+ 			 
+ 					 					 		 		 		  
+ 		 </Form>	
+		  
+	    
+  		<Grid id="grid" flex="1" region="west" title="Prova grid" rowEditing="true" autoScroll="true"  store="${userStore}">
+			<Toolbar dock="top">
+				<SearchButton id="cerca" text="Cerca"/>
+				<CreateButton id="new" text="Nuovo"/>
+				<DeleteButton id="delete" text="Elimina"/>
+			</Toolbar>
+			<Columns>
+				<Column text="Cliente" name="cliente.ragioneSociale"/>
+				<Column text="Anni di esperienza" name="senority"/>
+	 			<Column text="Sesso" name="sesso.nome"/> 
+			</Columns>
+			<Rows>		
+			
+			</Rows> 
+		</Grid>
+			 	 	 
+	 	 
+		 
+	</BorderLayout>	
+ </Page>
+  
