@@ -4,6 +4,8 @@
 	 
 	<script>
 		ESCAPE_FIELD = "__xxxesc__";
+		MODEL_ID = "__model_id";
+		ROW_ID = "__row_id";
 	</script> 
 	 
 	<widget name="AbstractComponent"/>

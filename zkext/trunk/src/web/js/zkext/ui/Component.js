@@ -3,7 +3,10 @@
 zkext.ui.Component = zk.$extends(zkext.ui.AbstractComponent,{	 
 	$define: {	 		
 		border:function(val){
-				
+			this.setProperty("border","setBorder",val);	
+		},
+		showBorder:function(val){
+			this.setProperty("border",null,val);
 		},
 		cls:function(val){
 			
@@ -74,5 +77,11 @@ zkext.ui.Component = zk.$extends(zkext.ui.AbstractComponent,{
 		columnWidth:function(val){
 			this.setProperty("columnWidth",null,val);
 		}
+	},
+	
+	
+	show:function(){
+		this.ext_.show();
 	}
+	
 });
