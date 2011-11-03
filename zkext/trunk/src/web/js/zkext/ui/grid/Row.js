@@ -2,7 +2,9 @@
 
 zkext.ui.grid.Row = zk.$extends(zkext.ui.container.Container,{	 
 	$define: {	 
-		 
+		 index:function(val){
+			 
+		 }
 	},	
 	configure_:function(){	
 		this.$supers('configure_',arguments);		

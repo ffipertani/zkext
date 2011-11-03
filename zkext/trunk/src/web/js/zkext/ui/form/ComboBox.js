@@ -7,7 +7,13 @@ zkext.ui.form.ComboBox = zk.$extends(zkext.ui.form.Picker,{
 		 },
 		 itemValue:function(val){
 			 this.setProperty("valueField",null,val);
-		 }		    
+		 },
+		 data:function(val){
+			 
+		 },
+		 value:function(val){			
+			 this.setProperty("value","setValue",val);
+		 }
 	},
 	
 	store:null,
@@ -18,16 +24,15 @@ zkext.ui.form.ComboBox = zk.$extends(zkext.ui.form.Picker,{
 		config.queryMode = "local";
 		config.store= this.createStore();						 
 	},
-	
+	 
 	createStore:function(){
-		this.store = Ext.create('Ext.data.Store', {
-			fields: [this.getItemLabel(), this.getItemValue()],
-			//fields:["id","name"],
-		    data : [
-		        {"id":1, "name":"Maschio"},
-		        {"id":2, "name":"Femmina"}
-		    ]
-		});
+		var storeConfig = new Object();
+		storeConfig.fields = [this.getItemLabel(), this.getItemValue()];
+		if(this.getData()!=null){
+			storeConfig.data = this.getData();	
+		}
+		
+		this.store = Ext.create('Ext.data.Store', storeConfig);
 		return this.store;
 	},
 	
