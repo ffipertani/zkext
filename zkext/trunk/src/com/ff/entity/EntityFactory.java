@@ -20,22 +20,26 @@ public class EntityFactory {
 		}
 	}
 	
-	public synchronized static EntityDescriptor createEntity(String name)throws Exception{
-		EntityDescriptor ed = entityCache.get(name);
-		buildMapping();
-		
-		if(ed==null){			
-			String packageName = name.replaceAll("\\.", "/");
-			InputStream testFile = Thread.currentThread().getContextClassLoader().getResourceAsStream(packageName+".xml");
-			 
-			Unmarshaller unmarshaller = new Unmarshaller(EntityDescriptor.class);
-			unmarshaller.setMapping(entityMapping);
-			ed = (EntityDescriptor) unmarshaller.unmarshal(new InputSource(testFile));
-		
-			testFile.close();
-			entityCache.put(name, ed);
-		}				
-		return ed;
+	public synchronized static EntityDescriptor createEntity(String name){
+		try{
+			EntityDescriptor ed = entityCache.get(name);
+			buildMapping();
+			
+			if(ed==null){			
+				String packageName = name.replaceAll("\\.", "/");
+				InputStream testFile = Thread.currentThread().getContextClassLoader().getResourceAsStream(packageName+".xml");
+				 
+				Unmarshaller unmarshaller = new Unmarshaller(EntityDescriptor.class);
+				unmarshaller.setMapping(entityMapping);
+				ed = (EntityDescriptor) unmarshaller.unmarshal(new InputSource(testFile));
+			
+				testFile.close();
+				entityCache.put(name, ed);
+			}				
+			return ed;
+		}catch(Exception e){
+			throw new RuntimeException(e);
+		}
 	}
 	
 }

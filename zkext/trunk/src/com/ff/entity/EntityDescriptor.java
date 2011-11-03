@@ -108,6 +108,16 @@ public class EntityDescriptor {
 		return toReturn;
 	}
 	
+	public FieldDescriptor getFieldByName(String name){
+		List<FieldDescriptor> descriptors = (List)getFieldDescriptors();
+		for(FieldDescriptor fd: descriptors){
+			if(fd.getName().equals(name)){
+				return fd;
+			}
+		}
+		return null;
+	}
+	
 	public String getFullName(){
 		return packageName+"."+name;
 	}

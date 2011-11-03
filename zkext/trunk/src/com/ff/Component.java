@@ -32,6 +32,8 @@ public class Component extends AbstractComponent{
 		
 	@Property
 	String border;
+	@Property
+	Boolean showBorder;
 	@Property 
 	String cls;	
 	@Property 
@@ -76,6 +78,13 @@ public class Component extends AbstractComponent{
 	String anchor;
 	@Property 
 	Float columnWidth;
+	
+	
+	public void show(){
+		callMethod("show", null);
+	}
+	
+	
 	
 	public String getBorder() {
 		return border;
@@ -214,6 +223,18 @@ public class Component extends AbstractComponent{
 	}
 	public void setColumnWidth(Float columnWidth) {
 		this.columnWidth = columnWidth;
+	}
+
+
+
+	public Boolean getShowBorder() {
+		return showBorder;
+	}
+
+
+
+	public void setShowBorder(Boolean showBorder) {
+		this.showBorder = showBorder;
 	}
 	   
 	

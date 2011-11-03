@@ -34,7 +34,7 @@ public class SmartUpdateInterceptor implements MethodInterceptor  {
 						getterName = "get"+getterName;
 						Method m = component.getClass().getMethod(getterName, new Class[]{});
 						Object value = m.invoke(component, null);
-						component.updateClient(propName, value);
+						component.updateClient(pf.getName(), value);
 					}
 				}
 			}

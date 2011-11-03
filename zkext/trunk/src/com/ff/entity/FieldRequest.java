@@ -10,7 +10,7 @@ public class FieldRequest extends EntityRequest{
 	public FieldRequest(){
 		
 	}
-	
+		
 	public FieldRequest(String name){
 		this.name = name;
 	}
