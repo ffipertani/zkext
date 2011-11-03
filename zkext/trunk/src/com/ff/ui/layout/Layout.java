@@ -25,13 +25,17 @@ public class Layout extends com.ff.AbstractComponent{
 		if(parent instanceof Container){
 			realParent = (Container)parent;
 			realParent.setLayout(this);		
+
 			this._init();
 		}else{
 			super.setParent(cmp);
 		}
 	}
 	
+	
+	
 	 
+	
 
 
 	public Map getModel(){
