@@ -6,19 +6,23 @@ import java.util.Map;
 
 import com.ff.Component;
 import com.ff.annotation.Property;
-import com.ff.ui.button.event.SaveEvent;
+import com.ff.model.Model;
+import com.ff.ui.button.event.EditEvent;
 import com.ff.ui.panel.Panel;
 import com.ff.ui.store.Store;
-import com.ff.utils.MapUtils;
 
 public class Form extends Panel{
 	static{
-		registerEvent(SaveEvent.class, Form.class,  SaveEvent.NAME, CE_IMPORTANT);
+		registerEvent(EditEvent.class, Form.class,  EditEvent.NAME, CE_IMPORTANT);
 	}
 	
 	@Property
 	private Store store;
 
+	public Store getStore(String field){
+		return store.getStore(field);
+	}
+	
 	public Store getStore() {
 		return store;
 	}
@@ -28,46 +32,32 @@ public class Form extends Panel{
 		store.addForm(this);
 	}
 	
-	public void loadModel(Map model){
-		loadModelRecursive(this,model);
-		
-	//	updateClient("model", model);
+	public void setSubmittedValues(Map map){
+		List<Field> fields = getFields();
+		for(Field field:fields){
+			field.setSubmittedValue(map);
+		}		 
 	}
-	
-	
-	private void loadModelRecursive(Component component, Map model){
-		List<Component> childs = component.getChildren();
-		for(Component comp:childs){
-			if(comp instanceof Field){
-				Field field = (Field)comp;
-				String name = field.getName();
-				Object val = MapUtils.getValue(name,model);//map.get(key);
-				if(val==null){
-					val = "";
-				}
-				if(field instanceof CheckBox){
-					if(val.equals(field.getValue())){
-						((CheckBox)field).setChecked(true);
-					}else{
-						((CheckBox)field).setChecked(false);
-					}
-				}else{
-					field.setValue(val.toString());
-				}
-				 
-				
-				/*
-				if(name!=null && !"".equals(name)){
-					field.setValue("'"+model.get(name)+"'");
-				}
-				*/
-			}else{
-				loadModelRecursive(comp,model);
-			}
+		
+	public Model getModel(){
+		Model model = new Model();
+		List<Field> fields = getFields();
+		for(Field field:fields){
+			field.createModelValue(model);
 		}
 		
-		
+		return model;
 	}
+	
+	 
+	public void setModel(Model model){
+		List<Field> fields = getFields();
+		for(Field field:fields){
+			field.setModel(model);
+		}
+	}
+	 
+	 
 	
 	public List<Field> getFields(){
 		List<Field> fields = new ArrayList();

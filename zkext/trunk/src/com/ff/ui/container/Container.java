@@ -18,7 +18,7 @@ public class Container extends Component{
 	@Property
 	private String dock;
 	@Property
-	private Boolean autoScroll;
+	private Boolean autoScroll=false;
 	//defaults
 	//items
 	 

@@ -2,10 +2,12 @@ package com.ff.ui.panel;
 
 import com.ff.Component;
 import com.ff.annotation.Property;
+import com.ff.ui.panel.event.CloseEvent;
 
 public class Panel extends AbstractPanel{
 	
 	static{
+		registerEvent(CloseEvent.class, Panel.class,  CloseEvent.NAME, CE_IMPORTANT);
 		//BEFORECLOSE
 		//BEFORECOLLAPSE
 		//BEFOREEXPAND
@@ -51,7 +53,7 @@ public class Panel extends AbstractPanel{
 	
 	
 	public void close(){
-		
+		callMethod("close", null);
 	}
 	
 	public void collapse(String direction){
