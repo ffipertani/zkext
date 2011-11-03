@@ -1,8 +1,4 @@
 select * 
 from $request.entityDescriptor.table
-#if( $request.filterCondition )
-   #set( $cond = $request.filterCondition )
-   WHERE 
-   $cond.field $cond.operation $cond.value
-#end
+$dao.writeWhereClause($request)
 
