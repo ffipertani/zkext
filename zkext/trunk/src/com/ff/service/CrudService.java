@@ -3,6 +3,10 @@ package com.ff.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.ff.dao.DaoRequest;
 import com.ff.dao.FilterCondition;
 import com.ff.dao.FilterOperation;
@@ -12,16 +16,21 @@ import com.ff.entity.EntityFactory;
 import com.ff.entity.EntityRequest;
 import com.ff.entity.FieldDescriptor;
 import com.ff.entity.FieldRequest;
+import com.ff.model.Model;
 
+@Transactional(
+	    propagation = Propagation.REQUIRED,
+	    isolation = Isolation.DEFAULT)
 public class CrudService extends Service implements ICrudService {
 	IDao crudDao;
 
+	@Transactional
 	@Override
 	public ServiceResponse create(ServiceRequest request)
 			throws RuntimeException {
 		ServiceResponse response = new ServiceResponse();
 		try {
-			Map model = request.getModel();
+			Model model = request.getModel();
 			EntityDescriptor descriptor = EntityFactory.createEntity(request
 					.getEntityDescriptor());
 			DaoRequest daoRequest = new DaoRequest();
@@ -45,6 +54,7 @@ public class CrudService extends Service implements ICrudService {
 		return response;
 	}
 
+	@Transactional
 	@Override
 	public ServiceResponse delete(ServiceRequest request) {
 		ServiceResponse response = new ServiceResponse();
@@ -62,6 +72,7 @@ public class CrudService extends Service implements ICrudService {
 		return response;
 	}
 
+	@Transactional
 	@Override
 	public ServiceResponse update(ServiceRequest request) {
 		ServiceResponse response = new ServiceResponse();
@@ -79,6 +90,7 @@ public class CrudService extends Service implements ICrudService {
 		return response;
 	}
 
+	@Transactional(readOnly=true)
 	@Override
 	public ServiceResponse read(ServiceRequest request) {
 		ServiceResponse response = new ServiceResponse();
@@ -88,7 +100,7 @@ public class CrudService extends Service implements ICrudService {
 					.createEntity(request.getEntityDescriptor());
 			EntityRequest entityRequest = request.getEntityRequest();
 			daoRequest.setEntityDescriptor(entityDescriptor);
-			// daoRequest.setModel(request.getModel());
+			daoRequest.setModel(request.getModel());
 
 			List<Map> fetched = crudDao.search(daoRequest);
 			for (Map map : fetched) {
@@ -110,6 +122,7 @@ public class CrudService extends Service implements ICrudService {
 			for (FieldDescriptor fd : descriptors) {
 				if (map.get(fd.getName()) == null
 						|| "".equals(map.get(fd.getName()))) {
+					map.put(fd.getName(), null);
 					continue;
 				}
 				Boolean finded = false;
@@ -121,8 +134,7 @@ public class CrudService extends Service implements ICrudService {
 					}
 				}
 				if (finded) {
-					EntityDescriptor childDescriptor = EntityFactory
-							.createEntity(fd.getEntity());
+					EntityDescriptor childDescriptor = EntityFactory.createEntity(fd.getEntity());
 					DaoRequest childRequest = new DaoRequest();
 					childRequest.setEntityDescriptor(childDescriptor);
 
