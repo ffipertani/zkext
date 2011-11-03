@@ -1,6 +1,6 @@
-/* SaveButton.js*/
+/* EditButton.js*/
 
-zkext.ui.button.SaveButton = zk.$extends(zkext.ui.button.Button,{	 
+zkext.ui.button.EditButton = zk.$extends(zkext.ui.button.Button,{	 
 	$define: {	 
 		 
 	},
@@ -10,11 +10,7 @@ zkext.ui.button.SaveButton = zk.$extends(zkext.ui.button.Button,{
 		
 		this.getInitialConfig().handler = function(){		 
 			var par = wgt.parent;
-			while(par){
-				if(zkext.ui.grid.Grid.isInstance(par)){
-					par.save();
-					break;
-				}
+			while(par){				
 				if(zkext.ui.form.Form.isInstance(par)){
 					par.submit();
 					break;

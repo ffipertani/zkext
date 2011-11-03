@@ -10,26 +10,32 @@ zkext.ui.grid.Grid = zk.$extends(zkext.ui.panel.Panel,{
 		 },
 		 store:function(val){					 
 		 },
-		 storeId:function(val){			 
-			 var page = this.getCurrentPage();
-			 for (var w = page.firstChild;w;w=w.nextSibling) {	
-				 if(w.uuid==val){
-					 this.setStore(w);
-					 break;
-				 }
-			 }			 
+		 storeId:function(val){			 			
 		 },
 		 rowEditing:function(val){
 			
+		 },
+		 selectedIndex:function(val){
+			 this._selectRow(val);
 		 }
 	},	 
+	//Per evitare che avvenga un onSelectionChange dopo una cancellazione
+	justDeleted:false,
 	
 	toCommit:new Array(),
 	
 	rowEditingPlugin:null,
 
-	createExt_:function(name){						
-		this.newInstance("Ext.grid.Panel");	 	
+	createExt_:function(name){			 
+		this.newInstance("Ext.grid.Panel");		
+		
+		/*
+		if(this.getStoreId!=null){
+			var app = this.getApplication();
+			this._searchStore(this.getStoreId(),app);  	
+		}
+		*/
+		 
 	},
 		
 	configure_:function(){	
@@ -88,14 +94,32 @@ zkext.ui.grid.Grid = zk.$extends(zkext.ui.panel.Panel,{
 			 plugins.push(this.rowEditingPlugin);
 		}
 		
+		config.scroll = false;
+		config.autoScroll = false;
+		
+		 
 		config.store = this.createStore();
 		//config.store = this.getExtStore();
 		config.plugins = plugins;
 		config.listeners= {
-	    	selectionchange:function(model,selected,opts){
-	    		var id = selected[0].data.__model_id;
+			
+	    	selectionchange:function(model,selected,opts){	    		
+	    	 
 	    		var o = new Object();
-	    		o.id = Number(id);	    		
+	    		
+	    		if (wgt.ext_.getSelectionModel().hasSelection()){
+	    			o.id = wgt.getExtStore().indexOf(selected[0]);	
+	    		}
+	    		
+	    		if(o.id == null){
+	    			if(this.forceOnSelectionChange){
+	    				this.forceOnSelectionChange = false;	
+	    			}else{
+	    				this._selectedIndex = null;
+	    				return;
+	    			}
+	    		}
+	    		
 	    		wgt.fire("onSelectionChange",o);
 	    	},
 	    	afterrender:function(component,eOpts){
@@ -141,7 +165,7 @@ zkext.ui.grid.Grid = zk.$extends(zkext.ui.panel.Panel,{
 			        type: 'memory',
 			        reader: {
 			            type: 'json'
-			       //     root: 'users'
+			       //     root:extjs 'users'
 			        }
 			    }
 		});
@@ -170,8 +194,9 @@ zkext.ui.grid.Grid = zk.$extends(zkext.ui.panel.Panel,{
 		}
 		
 	},
-	
+			
 	_refreshOverflow:function(){
+	
 		if(this.getAutoScroll()){
 			var dom = this.ext_.getEl().down(".x-grid-view",true);
 			dom.style.overflow="auto";
@@ -265,13 +290,45 @@ zkext.ui.grid.Grid = zk.$extends(zkext.ui.panel.Panel,{
             this.fire("onDelete",selection);
         }
 	},
+	selectRow:function(index){
+		this._doSelectRow(index, false);
+	},	 
 	
-	addRow:function(row){
+	_addRow:function(row){
 		if(this.getExtStore()!=null){			
 			var obj = row.toObject();
-			alert(obj);
-			this.getExtStore().add(obj);				
+			var index = row.getIndex();
+			this.getExtStore().insert(index,obj);				
 		}		
 	},	 
-	 
+	
+	_deleteRow:function(index){
+		console.log("deleting " + index +" element");
+		this.getExtStore().removeAt(index);
+		console.log("...deleted");
+	},
+	_selectRow:function(index){
+		this._doSelectRow(index, true);
+	},
+	
+	_doSelectRow:function(index,silent){
+		if(this.ext_!=null){
+			if(index>0){
+				this.ext_.getSelectionModel().select(index,false,silent);	
+			}else{
+				this.forceOnSelectionChange=true;
+				this.ext_.getSelectionModel().deselectAll();
+			}		
+		}
+	},
+	
+	_searchStore:function(id,comp){
+		for (var w = comp.firstChild;w;w=w.nextSibling) {	
+			 if(w.uuid==id){
+				 this.setStore(w);
+				 break;
+			 }
+			 this._searchStore(id,w);
+		 }		
+	}
 });

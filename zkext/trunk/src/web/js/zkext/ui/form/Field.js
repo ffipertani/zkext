@@ -3,8 +3,10 @@
 zkext.ui.form.Field = zk.$extends(zkext.ui.Component,{	 
 	$define: {	 
 		name:function(val){
-			this.setProperty("name",null,val);
-		},
+			 val = val.replace(".",ESCAPE_FIELD);
+			 this._name = val; 
+			 this.setProperty("name",null,val);
+		},		
 		value:function(val){
 			this.setProperty("value","setValue",val+"");
 		},
@@ -15,5 +17,9 @@ zkext.ui.form.Field = zk.$extends(zkext.ui.Component,{
 		boxLabel:function(val){
 			this.setProperty("boxLabel","setBoxLabel",val);
 		}		
+	},
+	
+	getModel:function(){
+		return this.ext_.getValue();
 	}
 });

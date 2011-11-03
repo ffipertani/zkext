@@ -6,5 +6,6 @@
 	<widget name="DeleteButton"/>
 	<widget name="SaveButton"/>
 	<widget name="ResetButton"/>
+	<widget name="EditButton"/>
 	 
 </package>

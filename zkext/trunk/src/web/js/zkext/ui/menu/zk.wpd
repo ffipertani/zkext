@@ -1,0 +1,6 @@
+<package name="zkext.ui.menu" language="xul/html" depends="zkext.ui.tree">
+
+	<widget name="Menu"/>
+	<widget name="MenuItem"/>
+	 
+</package>
