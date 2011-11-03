@@ -1,19 +1,18 @@
 package com.ff.dao;
 
-import java.util.Map;
-
 import com.ff.entity.EntityDescriptor;
+import com.ff.model.Model;
 
 public class DaoRequest {
 	private EntityDescriptor entityDescriptor; 	
 	private FilterCondition filterCondition;
-	private Map model;
+	private Model model;
 		 
 	
-	public Map getModel() {
+	public Model getModel() {
 		return model;
 	}
-	public void setModel(Map model) {
+	public void setModel(Model model) {
 		this.model = model;
 	}
 	public EntityDescriptor getEntityDescriptor() {

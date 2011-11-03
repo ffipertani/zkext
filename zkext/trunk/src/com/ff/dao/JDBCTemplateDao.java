@@ -1,15 +1,13 @@
 package com.ff.dao;
 
 import java.io.StringWriter;
-import java.sql.CallableStatement;
 import java.sql.DatabaseMetaData;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
+import java.util.Set;
 
 import javax.sql.DataSource;
 
@@ -17,11 +15,12 @@ import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
 import org.apache.velocity.app.VelocityEngine;
 import org.springframework.dao.DataAccessException;
-import org.springframework.jdbc.core.CallableStatementCallback;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.ResultSetExtractor;
 
 import com.ff.cache.Cache;
+import com.ff.entity.FieldDescriptor;
+import com.ff.model.Model;
 import com.ff.utils.DbUtils;
 
 
@@ -81,6 +80,33 @@ public class JDBCTemplateDao implements IDao{
 		return field.toUpperCase()+"="+writeValue(request,field);
 	}
 	
+	public String writeFilterCondition(FilterCondition filterCondition){
+		String condition = filterCondition.getField() + " " + filterCondition.getOperation() + " " + filterCondition.getValue();
+		return condition;
+	}
+	
+	public String writeWhereClause(DaoRequest request)throws Exception{
+		String clause = "";
+		Model model = request.getModel();
+		if(model!=null){
+			Set<String> keys = model.keySet();
+			clause = " where ";
+			int index = 0;
+			for(String key:keys){
+				if(index>0){
+					clause +=" && ";
+				}
+				clause += writeValuePair(request, key);
+			}
+		}else{
+			if(request.getFilterCondition()!=null){
+				FilterCondition filterCondition = request.getFilterCondition();
+				clause = " where ";
+				clause += writeFilterCondition(filterCondition);
+			}
+		}
+		return clause;
+	}
 	
 	private synchronized void buildTemplates(){
 		if(insert==null){		
@@ -105,16 +131,17 @@ public class JDBCTemplateDao implements IDao{
 	
 	
 	@Override
-	public List search(DaoRequest request) throws Exception {
+	public List search(final DaoRequest request) throws Exception {
 		String sql = call(select,request);
+		
 		//String sql = "select * from " + request.getEntityDescriptor().getTable();			
 		return jdbcTemplate.query(sql,new ResultSetExtractor<List>(){
 
 			@Override
 			public List extractData(ResultSet res) throws SQLException,
 					DataAccessException {
-				List toreturn = new ArrayList();
-				List<String> columns = new ArrayList();
+				List<Model> toreturn = new ArrayList<Model>();
+				List<String> columns = new ArrayList<String>();
 				int count = res.getMetaData().getColumnCount();
 				for (int i = 1; i <= count; i++) {
 					String name = res.getMetaData().getColumnLabel(i);
@@ -122,12 +149,22 @@ public class JDBCTemplateDao implements IDao{
 				}
 				 
 				while (res.next()) {
-					Map map = new HashMap();
+					Model model = new Model();
 					for (int i = 0; i < count; i++) {
 						Object val = res.getObject(columns.get(i));
-						map.put(columns.get(i).toLowerCase(), val!=null?val.toString():"");
+						
+						String name = columns.get(i).toLowerCase();
+						for(FieldDescriptor fd:request.getEntityDescriptor().getFieldDescriptors()){
+							if(fd.getColumn().equalsIgnoreCase(columns.get(i))){								
+								name =fd.getName();
+								break;
+							}
+						}												
+						model.put(name, val!=null?val.toString():"");	
+						 
+						
 					}
-					toreturn.add(map);
+					toreturn.add(model);
 				}
 				return toreturn;				 
 			}			
