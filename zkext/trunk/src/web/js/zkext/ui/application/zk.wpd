@@ -1,0 +1,5 @@
+<package name="zkext.ui.application" language="xul/html" depends="zkext.ui.container">
+
+	<widget name="Application"/>
+	 
+</package>
