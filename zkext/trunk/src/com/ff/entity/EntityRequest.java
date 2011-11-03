@@ -19,6 +19,9 @@ public class EntityRequest {
 	 * oppure una complessa tipo regione.descrizione 
 	 */
 	public void addField(String field){				 
+		if(field == null){
+			return;
+		}
 		String[] names = field.split("\\.");
 		
 		String name = names[0];
@@ -34,7 +37,31 @@ public class EntityRequest {
 		fields.add(fr);					 		 
 	}
 	
-	protected FieldRequest getFieldByName(String name){
+	public void mergeWith(EntityRequest entityRequest){
+		if(entityRequest == null){
+			return;
+		}
+		for(FieldRequest fr:getFields()){			
+			for(FieldRequest fr2:entityRequest.getFields()){
+				if(fr.getName().equals(fr2.getName())){
+					fr.mergeWith(fr2);					
+					break;
+				}
+			}		
+		}
+		for(FieldRequest fr2:entityRequest.getFields()){
+			Boolean finded = false;
+			for(FieldRequest fr:getFields()){			
+				if(fr.getName().equals(fr2.getName())){
+					finded = true;
+					break;
+				}
+			}
+			fields.add(fr2);
+		}		
+	}
+	
+	public FieldRequest getFieldByName(String name){
 		for(FieldRequest request:fields){
 			if(request.getName().equals(name)){
 				return request;

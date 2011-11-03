@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import org.zkoss.json.JSONObject;
 import org.zkoss.zk.ui.Component;
 import org.zkoss.zk.ui.event.Events;
 import org.zkoss.zk.ui.sys.ContentRenderer;
@@ -21,15 +20,15 @@ import com.ff.enums.UpdateType;
 import com.ff.event.Event;
 import com.ff.event.EventConfig;
 import com.ff.factory.UiFactory;
+import com.ff.ui.application.Application;
 import com.ff.ui.layout.Layout;
-import com.ff.ui.page.Page;
 import com.ff.ui.store.Store;
 
 public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponent{
 
 	protected Map<String,PropertyField> properties = new HashMap<String,PropertyField>();
 	protected static Map<Class,List<EventConfig>> events = new HashMap<Class,List<EventConfig>>();
-	private static UiFactory FACTORY;
+	protected static UiFactory FACTORY;
 	
 	static{
 		if(FACTORY==null){
@@ -147,8 +146,8 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 				propertyField.setUpdateServer(property.updateServer());
 				propertyField.setOriginClass(aclass);
 				propertyField.setName(field.getName());
-				if(properties.get(field.getName())==null){
-					properties.put(field.getName(), propertyField);
+				if(properties.get(field.getName().toLowerCase())==null){
+					properties.put(field.getName().toLowerCase(), propertyField);
 				}
 			}
 		}		 
@@ -157,7 +156,7 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 	public void addProperty(String name, PropertyField property)throws Exception{
 		Field field = this.getRealClass().getField(name);
 		if(field!=null){
-			properties.put(name, property);
+			properties.put(name.toLowerCase(), property);
 		}
 	}
 	
@@ -219,7 +218,7 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 			 
 			Object value = getPropertyValue(pf);
 			if(value!=null){
-				render(renderer, property, value);
+				render(renderer, pf.getName(), value);
 			}	
 		}catch(Exception e){}
 	}
@@ -246,6 +245,13 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 				render(renderer, property, value);				 
 			}
 		}catch(Exception e){}				 
+	}
+	
+	public void callMethod(String name, Object[] args){
+		Map object = new HashMap();
+		object.put("method", name);
+		object.put("args",args);
+		this.updateClient("callMethod", object);
 	}
 	
 	public void updateClient(String property, Object value){
@@ -276,9 +282,25 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 	public <T> T getChildOfClass(Class<T> cls){
 		List<AbstractComponent> children = getChildren();	 
 		for(AbstractComponent child:children){			
-			if(child.getRealClass().isAssignableFrom(cls) ){
+			//if(child.getRealClass().isAssignableFrom(cls) ){
+			if(cls.isAssignableFrom(child.getRealClass())){
 				return (T)child;
 			}
+		}
+		return null;
+	}
+	
+	public <T> T getParentOfClass(Class<T> cls){
+		try{
+			AbstractComponent parent = 	(AbstractComponent)getParent(); 
+			while(parent != null){
+				if(parent.getRealClass().isAssignableFrom(cls) ){
+					return (T)parent;
+				}
+				parent = (AbstractComponent)parent.getParent();
+			}	
+		}catch(Exception e){
+			
 		}
 		return null;
 	}
@@ -286,24 +308,28 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 	public <T> List<T> getChildrenOfClass(Class<T> cls){
 		List<AbstractComponent> children = getChildren();	 
 		List<T> toReturn = new ArrayList<T>();
-		for(AbstractComponent child:children){			
-			if(child.getRealClass().isAssignableFrom(cls) ){
-				toReturn.add((T)child);
+		for(int i=0;i<children.size();i++){
+			Object o = children.get(i);
+			if(o instanceof AbstractComponent){
+				AbstractComponent child = (AbstractComponent)o;
+				if(cls.isAssignableFrom(child.getRealClass()) ){
+					toReturn.add((T)child);
+				}
 			}
-		}
+		}		 
 		return toReturn;
 	}
 	
 	public List<Store> getStores(){
-		Page page = getParentPage();
-		return page.getChildrenOfClass(Store.class);
+		Application app = getApplication();
+		return app.getChildrenOfClass(Store.class);
 	}
 	
-	public Page getParentPage(){
+	public Application getApplication(){
 		AbstractComponent parent = this;
 		while(parent!=null || !(parent instanceof AbstractComponent) ){
-			if(parent instanceof Page){
-				return (Page)parent;
+			if(parent instanceof Application){
+				return (Application)parent;
 			}
 			parent = (AbstractComponent)parent.getParent();			
 		}
@@ -312,6 +338,10 @@ public abstract class AbstractComponent extends org.zkoss.zk.ui.AbstractComponen
 	
 	public <T extends AbstractComponent> T newInstance(Class<T> c){
 		return FACTORY.newInstance(c);
+	}
+	
+	public <T extends AbstractComponent> T newInstance(String uri){
+		return (T) FACTORY.newComponent(uri,this);
 	}
 	 
 }
