@@ -1,0 +1,39 @@
+ <Application title="Prova EXTJS" apply="${Ctrl}" styleHeight="100%" styleWidth="100%" >
+
+	<Store id="userStore" entity="com.ff.test.entity.User" crudService="${crudService}"/>  
+
+ 	 <Panel title="CompanyData" width="750" height="400" autoScroll="true">
+		<ColumnLayout>
+		 
+				<Grid id="grid" columnWidth="0.6" title="Prova grid" height="200"  autoScroll="true"    store="${userStore}">
+					<Toolbar dock="top">
+						<SearchButton id="cerca" text="Cerca"/>
+						<CreateButton id="new" text="Nuovo"/>
+						<DeleteButton id="delete" text="Elimina"/>
+					</Toolbar>
+					<Toolbar dock="bottom">
+						 <Label text="saluta"/>
+					</Toolbar>
+					<Columns>
+						<Column text="Nome" name="firstname" width="120"/>
+						<Column text="Anni di esperienza" name="senority" width="120"/>			 			
+					</Columns>
+					<Rows>							  		 						
+						<Row>
+							<Cell name="firstname" value="Pippo"/>
+							<Cell name="senority" value="13"/>							 
+						</Row>						 
+						<Row>
+							<Cell name="firstname" value="Pippo"/>
+							<Cell name="senority" value="13"/>							 
+						</Row>						 		
+					</Rows> 
+				</Grid>
+				<Form columnWidth="0.4">
+					<Text label="Pippo" width="240"/>
+				</Form>
+		 </ColumnLayout>
+	 </Panel>
+ 
+ </Application>
+  

@@ -1,0 +1,73 @@
+<View title="Master Detail" >
+	<Store id="userStore" entity="com.ff.test.entity.User" crudService="${crudService}" />
+
+	<BorderLayout>
+		<Grid id="grid" flex="1" region="center" rowEditing="true" autoScroll="true" store="${userStore}">
+			<Toolbar dock="top">
+				<SearchButton id="cerca" text="Cerca" />
+				<CreateButton id="new" text="Nuovo" />
+				<DeleteButton id="delete" text="Elimina" />
+			</Toolbar>
+			<Columns>
+				<Column text="Nome" name="firstname" />
+				<Column text="Anni di esperienza" name="senority" />
+				<Column text="Sesso" name="sesso.nome" />
+				<!-- <Column text="Regione" name="regione.nome"/> -->
+			</Columns>
+			<Rows>
+			</Rows>
+		</Grid>
+
+		<Form title="Prova form" flex="1" region="south" height="400" autoScroll="true" store="${userStore}">
+			<Toolbar dock="top">
+				<EditButton text="Modifica" />
+			</Toolbar>
+
+			<Label text="Questa è una form" />
+
+			<Text label="Nome" name="firstname" value="test" />
+
+			<FieldContainer label="Sesso">
+				<Radio boxLabel="M" name="sesso" value="1" />
+				<Radio boxLabel="F" name="sesso" value="2" />
+			</FieldContainer>
+
+			<Number label="Anni di esperienza" name="senority" />
+
+			<FieldContainer>
+				<HBoxLayout>
+					<ComboBox label="Regione" name="regione" itemLabel="nome" itemValue="id" />
+					<Date label="Data di nascita" name="dataNascita" />
+					<Time label="Ora di nascita" name="timeofbirth" />
+				</HBoxLayout>
+			</FieldContainer>
+
+			<FieldContainer label="Interessi">
+				<CheckBox boxLabel="Calcio" name="interessi" value="calcio" />
+				<CheckBox boxLabel="Nuoto" name="interessi" value="nuoto" />
+			</FieldContainer>
+
+
+
+			<Display label="Testo normale" value="Questo è un testo normale" />
+
+			<File label="Foto" />
+
+			<Hidden label="Un qualiasi campo hidden" />
+
+			<HtmlEditor label="Descrizione" name="descrizione" />
+
+			<Spinner label="Uno spinner" />
+
+			<TextArea label="Descrizione breve" name="descrizioneBreve" />
+
+
+			<ButtonBar>
+				<ResetButton text="Annulla" />
+				<SaveButton text="Salva" />
+			</ButtonBar>
+		</Form>
+
+	</BorderLayout>
+
+</View>

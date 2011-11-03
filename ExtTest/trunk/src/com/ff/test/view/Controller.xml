@@ -1,0 +1,27 @@
+<View title="Test controller" controller="${TestCtrl}">
+	<Grid id="grid" width="150">
+		<Toolbar dock="top">
+			<Button id="buttonSize" text="Mi ingrandisco..." />
+			<Button id="buttonMessage" text="Apri MessageBox" />
+			<Button id="buttonGrid" text="Aggiungo una riga al grid" />
+			<Button id="buttonWindow" text="Apri la window" />
+		</Toolbar>
+		<Columns>
+			<Column text="Nome" name="firstname" width="120"/>
+			<Column text="Anni di esperienza" name="senority" width="120"/>			 			
+		</Columns>
+		<Rows>							  		 						
+			<Row>
+				<Cell name="firstname" value="Pippo"/>
+				<Cell name="senority" value="13"/>							 
+			</Row>						 
+			<Row>
+				<Cell name="firstname" value="Pippo"/>
+				<Cell name="senority" value="13"/>							 
+			</Row>						 		
+		</Rows> 				
+	</Grid>
+	<Window id="window1" title="sono una window" height="200" width="200">
+		<Label text="Questa è una window" />
+	</Window>
+</View>

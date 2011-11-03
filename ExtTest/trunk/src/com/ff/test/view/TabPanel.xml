@@ -1,0 +1,16 @@
+ 
+<TabPanel styleWidth="100%" styleHeight="100%" border="10">	 
+	<Panel title="Un altro tab">
+		<Label text="Contenuto tab" />
+	</Panel>
+	<Panel title="Un tree">			 
+		<FitLayout>
+			<TreePanel styleWidth="100%" styleHeight="100%">
+				<TreeItem text="Root" root="true">
+					<TreeItem text="Figlio 1"/>
+					<TreeItem text="figlio 2" /> 
+				</TreeItem>
+			</TreePanel>
+		</FitLayout>
+	</Panel>
+</TabPanel>

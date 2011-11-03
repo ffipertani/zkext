@@ -1,93 +1,131 @@
- <Page title="Prova EXTJS" apply="${TestCtrl}" styleHeight="100%" styleWidth="100%" >
+<Application title="Prova EXTJS" apply="${TestCtrl}">
 
-	<CrudStore id="userStore" entity="com.ff.test.entity.User" crudService="${crudService}"/>  
+	<Store id="userStore" entity="com.ff.test.entity.User" crudService="${crudService}" />
 
- 	<BorderLayout>
+	<BorderLayout>
 		<Toolbar region="north" height="40" styleWidth="100%">
-				<Label text="Prova ext"/>
+			<Label text="Prova ext" />
 		</Toolbar>
+		<Menu title="Menu" region="west" width="200">			 			 
+			<MenuItem text="Gestione utenti" view=""/>
+			<MenuItem text="Gestione ordini" /> 		 
+		</Menu>		 
+		<TabPanel region="center" styleWidth="100%" styleHeight="100%">
+			<Panel title="Gestione utenti" region="center" styleWidth="100%" styleHeight="100%">
+				<!--  -->
+				<BorderLayout>
+					<Grid id="grid" flex="1" region="center" title="Prova grid" rowEditing="true" autoScroll="true" store="${userStore}">
+						<Toolbar dock="top">
+							<SearchButton id="cerca" text="Cerca" />
+							<CreateButton id="new" text="Nuovo" />
+							<DeleteButton id="delete" text="Elimina" />
+						</Toolbar>
+						<Columns>
+							<Column text="Nome" name="firstname" />
+							<Column text="Anni di esperienza" name="senority" />
+							<Column text="Sesso" name="sesso.nome" />
+							<!-- 		 			<Column text="Regione" name="regione.nome"/>
+							-->
+						</Columns>
+						<Rows>
+							<!-- 		 
+								<Row>
+								<Cell name="firstname" value="Michael"/>
+								<Cell name="senority" value="3"/>
+								<Cell name="sex" value="M"/>
+								</Row>	
+								<Row>
+								<Cell name="firstname" value="Pippo"/>
+								<Cell name="senority" value="13"/>
+								<Cell name="sex" value="M"/>
+								</Row>
+							-->
+						</Rows>
+					</Grid>
+
+					<Form title="Prova form" flex="1" region="south" styleHeight="400" autoScroll="true" store="${userStore}">
+						<Toolbar dock="top">
+							<EditButton text="Modifica" />
+						</Toolbar>
+
+						<Label text="Questa è una form" />
+
+						<Text label="Nome" name="firstname" value="test" />
+
+						<FieldContainer label="Sesso">
+							<Radio boxLabel="M" name="sesso" value="1" />
+							<Radio boxLabel="F" name="sesso" value="2" />
+						</FieldContainer>
+
+						<Number label="Anni di esperienza" name="senority" />
+
+						<FieldContainer>
+							<HBoxLayout>
+								<ComboBox label="Regione" name="regione" itemLabel="nome" itemValue="id" />
+								<Date label="Data di nascita" name="dataNascita" />
+								<Time label="Ora di nascita" name="timeofbirth" />
+							</HBoxLayout>
+						</FieldContainer>
+
+						<FieldContainer label="Interessi">
+							<CheckBox boxLabel="Calcio" name="interessi" value="calcio" />
+							<CheckBox boxLabel="Nuoto" name="interessi" value="nuoto" />
+						</FieldContainer>
+
+
+
+						<Display label="Testo normale" value="Questo è un testo normale" />
+
+						<File label="Foto" />
+
+						<Hidden label="Un qualiasi campo hidden" />
+
+						<HtmlEditor label="Descrizione" name="descrizione" />
+
+						<Spinner label="Uno spinner" />
+
+						<TextArea label="Descrizione breve" name="descrizioneBreve" />
+
+
+
+
+						<ButtonBar>
+							<ResetButton text="Annulla" />
+							<SaveButton text="Salva" />
+						</ButtonBar>
+					</Form>
+
+				</BorderLayout>
+			</Panel>
+			<Panel title="Un altro tab">
+				<Label text="Contenuto tab" />
+			</Panel>
+			<Panel title="Un tree">			 
+				<FitLayout>
+					<TreePanel styleWidth="100%" styleHeight="100%">
+						<TreeItem text="Root" root="true">
+							<TreeItem text="Figlio 1"/>
+							<TreeItem text="figlio 2" /> 
+						</TreeItem>
+					</TreePanel>
+				</FitLayout>
+ 			</Panel>
+		</TabPanel>
 		
-		<Panel title="Gestione utenti" region="center"  autoScroll="true" >
-		 	<!--  -->
-		 	<VBoxLayout>
-				<Grid id="grid" title="Prova grid" rowEditing="true" height="150" styleWidth="100%" store="${userStore}">
-					<Toolbar dock="top">
-						<SearchButton id="cerca" text="Cerca"/>
-						<CreateButton id="new" text="Nuovo"/>
-						<DeleteButton id="delete" text="Elimina"/>
-					</Toolbar>
-					<Columns>
-						<Column text="Nome" name="firstname"/>
-						<Column text="Anni di esperienza" name="senority"/>
-					</Columns>
-					<Rows>				 
-						<Row>
-							<Cell name="firstname" value="Michael"/>
-							<Cell name="senority" value="3"/>
-						</Row>	
-						<Row>
-							<Cell name="firstname" value="Pippo"/>
-							<Cell name="senority" value="13"/>
-						</Row>				
-					</Rows>
-				</Grid>
-				
-				<Form title="Prova form" height="300" width="800" autoScroll="true"  store="${userStore}">
-					<Toolbar dock="top">						
-						<CreateButton  text="Salva"/>						
-					</Toolbar>
-		 			<Label text="Questa è una form"/>
-		 			
-		 			<Text label="Nome" name="firstname" value="test"/>
-		 			
-		 			<FieldContainer label="Sesso">		
-		 				<Radio boxLabel="M" name="sesso" value="M"/>
-		 				<Radio boxLabel="F" name="sesso" value="F"/>
-		 			</FieldContainer>
-		 			
-		 			<FieldContainer label="Interessi">
-		 				<CheckBox boxLabel="Calcio" name="interessi" value="calcio"/>
-		 				<CheckBox boxLabel="Nuoto" name="interessi" value="nuoto"/>
-		 			</FieldContainer>
-		 					 			 		 			
-		 			<ButtonBar>
-		 				<ResetButton text="Annulla"/>
-		 				<SaveButton text="Salva"/>
-		 			</ButtonBar>
-		 			
-		 			<Number label="Anni di esperienza" name="senority"/>
-		 			
-		 			<ComboBox label="Regione"/>
-		 			<Date label="Data di nascita" name="birth"/>
-		 			<Time label="Ora di nascita" name="timeofbirth"/> 
-		 			<Display label="Testo normale" value="Questo è un testo normale"/>
-		 			<File label="Foto"/>
-		 			<Hidden label="Un qualiasi campo hidden"/>
-		 			<HtmlEditor label="Descrizione"/>
-		 				 	
-		 			
-		 			<Spinner label="Uno spinner"/>
-		 			<TextArea label="Descrizione breve"/>
-		 			
-		 			
-		 		 
-		 		    
-		 		 </Form>	
-	 		 </VBoxLayout>
-	 		 
-		</Panel>
-	    <Panel title="Menu" width="200" region="west">
-		  		<Button id="button" text="Cliccami"  />		 	 
-	 	</Panel>
 		<Panel title="Menu" width="150" region="east">
-				<Button id="buttone" text="EAST"  />		 	
-	 	</Panel>
-	 	<Panel title="Menu" height="50" region="south">
-	 			<Button id="buttonw" text="SUD"  />		
-	 	</Panel>
+			<Button id="buttonSize" text="Mi ingrandisco..." />
+			<Button id="buttonMessage" text="Apri MessageBox" />
+			<Button id="buttonGrid" text="Aggiungo una riga al grid" />
+			<Button id="buttonWindow" text="Apri la window" />
+			<Window id="window1" title="sono una window" height="200" width="200">
+				<Label text="Questa è una window" />
+			</Window>
+		</Panel>
+		<Panel title="Menu" height="50" region="south">
+			<Button id="buttonw" text="SUD" />
+		</Panel>
 	</BorderLayout>
-	
-	
- 
- </Page>
-  
+
+
+
+</Application>
