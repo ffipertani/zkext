@@ -1,0 +1,6 @@
+<package name="zkext.ui.window" language="xul/html" depends="zkext.ui.panel">
+
+	<widget name="Window"/>
+	<widget name="MessageBox"/>
+	 
+</package>

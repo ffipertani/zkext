@@ -15,44 +15,13 @@ zkext.ui.store.Store = zk.$extends(zkext.ui.AbstractComponent,{
 		this.$supers('configure_');	
 		var wgt = this;
 		var config = this.getInitialConfig();
-		config.autoSync= true;
-		config.fields = [];
-		//config.model = 'User';//
-		//config.model =this._modelUsed[0].name,
-		config.proxy = {
-	        type: 'memory',
-	        reader: {
-	            type: 'json'
-	       //     root: 'users'
-	        }
-	    };
- 
-	 
+		 
 		
 	},
 	instance:null,
 	createExt_:function(){
 	 		
-		//this.newInstance('Ext.data.Store');
-		
-		/*
-		var store = Ext.create('Ext.data.Store', {
-		    //model: 'User',
-			fields: ['id','firstname','senority'],
-		    proxy : {
-			        type: 'memory',
-			        reader: {
-			            type: 'json'
-			       //     root: 'users'
-			        }
-			    }
-		});
-		*/
-	//	var store = Ext.create('Ext.data.Store', this.getInitialConfig());
-		
-		
-	//	this.instance = store;
-		/*	*/
+		 
 	},
 	addModel:function(val){
 		this.instance.add(val);

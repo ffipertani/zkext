@@ -43,7 +43,8 @@ zkext.ui.panel.Panel = zk.$extends(zkext.ui.container.Container,{
 	},	
 	
 	configure_:function(){
-		this.$supers('configure_');		
+		this.$supers('configure_');	
+		var wgt = this;
 		var config = this.getInitialConfig();
 		var childs = this.getDockedItems();
 		
@@ -52,7 +53,33 @@ zkext.ui.panel.Panel = zk.$extends(zkext.ui.container.Container,{
 		if(childs.length>0){
 			config.dockedItems = childs;
 		}
+		
+		
+		config.listeners = {
+				beforeclose:function(panel,opts){	   
+		    		if(!wgt.canClose){
+		    			wgt.fire("onClose");		    		
+		    			return false;
+		    		}else{
+		    			wgt.canClose = false;
+		    		}							    				    
+		    	}
+		};
 	 
+	},
+	
+	collapse:function(){
+		if(this.ext_!=null){
+			this.ext_.collapse();
+		}
+	},
+
+	canClose:false,
+	close:function(){
+		if(this.ext_!=null){
+			this.canClose = true;
+			this.ext_.close();			
+		}
 	},
 	
 	createExt_:function(){		
